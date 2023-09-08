@@ -1,7 +1,6 @@
 <!-- DD menu -->
 <link type="text/css" href="view/menu.css" rel="stylesheet" />
 
-
 <body>
   <div class="header">
     <div class="header_resize">
