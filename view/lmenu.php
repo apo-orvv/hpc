@@ -8,7 +8,6 @@
         <h1> High performance Computing Facilities</h1>
       </div>
 
-
       <div id="menu">
         <ul class="menu">
           <li><a href="index.php"><span style="line-height:1px">Home</span></a></li>
