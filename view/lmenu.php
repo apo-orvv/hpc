@@ -17,7 +17,6 @@
             <div>
               <ul>
 
-
                 <?php if (($usertype == 'AI') || ($usertype == 'A') || ($usertype == 'AS') || ($usertype == 'AD') || ($usertype == 'O') || ($usertype == 'U')) { ?>
 
                   <li><a href="index.php?hpcpage=statusscreen_new" class="parent"><span>HPC Server Status</span></a>
