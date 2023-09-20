@@ -6,7 +6,6 @@ class LogController
 {
     private $model;
     private $view;
-
     public function __construct()
     {
         $this->model = new LogModel();
