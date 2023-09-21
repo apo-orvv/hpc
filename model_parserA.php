@@ -2,7 +2,6 @@
 class LogModel
 {
     private $pdo;
-
     public function __construct()
     {
         // Update parameters with actual database credentials
