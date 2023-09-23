@@ -11,7 +11,6 @@ class LogController
         $this->model = new LogModel();
         $this->view = new LogView();
     }
-
     public function handleRequest()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
