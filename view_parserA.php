@@ -1,7 +1,6 @@
 <?php
 class LogView
 {
-    
     public function showForm($error = null)
     {
         echo '
