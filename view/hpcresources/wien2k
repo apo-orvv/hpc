@@ -1,0 +1,22 @@
+
+    
+<section>
+ <h1>WIEN2K</h1>
+ <p>WIEN2k perform electronic structure calculations of solids using density functional theory (DFT). It is based on the full-potential (linearized) augmented plane-wave ((L)APW) + local orbitals (lo) method, one among the most accurate schemes for band structure calculations. WIEN2k is an all-electron scheme including relativistic effects and has many features.</p>
+ <h2>Calculated properties</h2>
+ <ul>
+<li>	Energy bands and density of states</li>
+ <li>	electron densities and spin densities, x-ray structure factors</li>
+ <li>	Baders's "atoms-in-molecule" concept</li>
+ <li>	total energy, forces, equilibrium geometries, structure optimization, molecular dynamics</li>
+  <li>	Phonons, with an interface to K.Parlinski's PHONON program</li>
+  <li>	electric field gradients, isomer shifts, hyperfine fields</li>
+  <li>	spin-polarization (ferro- or antiferromagnetic structures), spin-orbit coupling</li>
+  <li>	x-ray emission and absorption spectra, electron energy loss spectra</li>
+  <li>	optical properties</li>
+  <li>	fermi surfaces</li>
+  <li>	LDA, GGA, meta-GGA, LDA+U, orbital polarization</li>
+
+ </ul>
+  </section>
+

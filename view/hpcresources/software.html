@@ -1,0 +1,456 @@
+<section>
+
+<script>
+function abaqus() {
+    var x = document.getElementById("abaqusDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function thermocalc() {
+    var x = document.getElementById("thermocalcDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function vnlatk() {
+    var x = document.getElementById("vnlatkDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function feff() {
+    var x = document.getElementById("feffDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function ansys() {
+    var x = document.getElementById("ansysDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function sysweld() {
+    var x = document.getElementById("sysweldDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function cfdace() {
+    var x = document.getElementById("cfdaceDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+
+</head>
+
+
+
+
+
+<body>
+
+<button onclick="abaqus()">ABAQUS</button><br><br>
+
+<div id="abaqusDIV" style= "display:none">
+<p>The Abaqus software version 2017 installed in IVY cluster is integrated with the job scheduler SLURM. 
+The procedure for submitting Abaqus jobs (along with User Subroutines) through the job scheduler (SLURM) on IVY cluster is as follows 
+(<b>to run without user subroutine, skip steps 5 and 6</b>):
+</P>
+
+
+<ol type="1">
+<li> Login to the head node of IVY Cluster (10.1.2.3)</li>
+<li> create a directory in your home folder for the job you want to execute, with following command:<br><b>mkdir job1</b></li>
+<li> Switch to this directory with<br><b>cd job1</b></li>
+<li> Place the input file (eg: job1.inp) and user subroutine file (job1.f) in this job1 directory</li>
+<li> Execute the following command to find present working directory:<br><b>pwd</b><br>This will return the absolute path for your job folder
+<br>Eg: <b>/home/&lt;group&gt;/&lt;user&gt;/job1</b></li>
+
+<li>Issue the following command for compiling the user subroutine:<br>
+<b>abq2017 make library=job1.f directory=[absolute path to job folder]</b><br>
+Replace <b>[absolute path to job folder]</b> with the output of "pwd" command in step 5<br>
+Eg: <b>abq2017 make library=job1.f directory=/home/<&lt;group&gt;/&lt;user&gt;/job1</b><br>
+Note: the value assigned to directory attribute above must be the absolute path to the job folder "job1"</li>
+
+<li>Submit Abaqus job with the command below:</br>
+<b>abq2017 job=&lt;input file name&gt; cpus=&lt;no. of cpus&gt;</b><br>
+Eg: <b>abq2017 job=job1 cpus=4</b><br>
+The above command will submit the job through SLURM and allocate the number of cpus specified with the "cpus" option. The “job id” of 
+the submitted job will be displayed.<br>
+Eg: <b>Submitted batch job &lt;job id&gt;</b><br>
+<b>Note: For running the job on a single node of IVY cluster, the value of “cpus” option can be from 1 to 24, 
+as there are 24 CPU cores in 1 node of IVY cluster. To run on multiple nodes, the value of “cpus” option must be a multiple of 24 i.e. 48, 72, 96 …
+</b></li>
+
+<li>You can monitor the job with the following command:<br><b>squeue</b></li>
+
+<li>When the job is running, the output files and temporary files will be created in the user’s scratch directory 
+(i.e. /apps/scratch/&lt;group&gt;/&lt;user&gt;). After the job completes, the output files (i.e. job1.msg, job1.odb, job1.dat etc.) 
+will be copied to a job specific sub-directory in the job submission directory of the user’s home folder.<br>
+Eg: <b>/home/&lt;group&gt;/&lt;user&gt;/job1/&lt;job id&gt;_abaqus_&lt;job name&gt;</b></li></ol>
+
+<p>To monitor the job's output and log files during the job run, you can switch to the scratch directory with the following command:<br>
+<b>shm</b><p>
+<p>To switch back to home directory<br><b>uhm</b><p>
+<p>To list the files in scratch directory:<br><b>ls $SHOME</b><p>
+
+<h4>ABAQUS</h4>
+<p>Procedure to invoke ABAQUS on workstations.</p>
+<p>Abaqus Versions available in workstation:</p>
+<ul><li>Abaqus 2016</li><li>Abaqus 2017</li></ul>
+
+<p>Procedure:</p>
+<ol type="1"><li>Go to the Start Menu, and click on “All Programs”</li>
+<img src="Picture1.jpg"><br><br>
+
+<li>Then navigate to the “DassaultSystemes SIMULIA Abaqus CAE 2016” or “DassaultSystemes SIMULIA Abaqus CAE 2017” folder 
+(depending on the Abaqus version you want to use) and click on it.</li>
+<img src="Picture2.jpg"><br><br>
+<img src="Picture3.jpg"><br><br>
+
+<li>For using the Abaqus CAE, click on “Abaqus CAE”</li>
+<img src="Picture4.jpg">
+<p>The licenses are checked out and the following Window is displayed, indicating the no. of licenses remaining<br>
+<img src="Picture5.jpg"></p>
+
+ 
+<p>After some time the Abaqus CAE loads as below:
+<img src="Picture6.jpg"></p>
+ 
+<li>For using the Abaqus Viewer, click on “Abaqus Viewer”. The licenses are checked out and the following Window is displayed,
+ indicating the no. of licenses remaining<br><img src="Picture7.jpg"></li>
+
+<p>After some time the Abaqus Viewer loads as below:
+<img src="Picture8.jpg"></p></ol><br>
+</div> 
+
+
+
+
+
+
+<button onclick="thermocalc()">THERMOCALC</button><br><br>
+<div id="thermocalcDIV" style="display:none">
+<p>Procedure to invoke Thermocalc in Workstations</P>
+<ul><li>Users can run Thermocalc 2016a by clicking the <b>Thermo-Calc-2106a</b> icon on the desktop as depicted in the following screenshot.<br>
+<img src="Picture9.png"></li></ul><br>
+</div>
+
+
+
+
+
+
+<button onclick="vnlatk()">VNL and ATK</button><br><br>
+<div id="vnlatkDIV" style="display:none">
+<p>Procedure to run VNL and ATK</p>
+
+<ol type="1"><li>VNL can be launched by running ‘vnl’ from the command line.<br>
+<b>Note: Before running VNL user must login to a GUI session on the head node first.</b><br># vnl</li><br>
+
+<li>Running ATK scripts is possible through VNL  or through the command line. For invoking through command line, start it a below:<br> 
+	# atkpython script.py &gt; logfile.log<br>
+For running the parallel version it can be invoked as below:<br>
+	# mpirun -n 4 –f machinefile atkpython test_mpi.py</li><br>
+
+<li>For running through slurm<br>
+Take a copy of <b>/home/slurm_templet/slurmScriptVnlAtk.sh</b> to the user home directory and modify Line no 8, 9 and 20 as required.<br>
+Then submit the batch job by running the following command:<br>
+	# sbatch –N &lt;no. Of nodes to use for this job&gt; slurmScriptVnlAtk.sh</li></ol><br>
+
+</div>
+
+
+
+
+
+<button onclick="feff()">FEFF</button><br><br>
+<div id="feffDIV" style="display:none">
+
+<p><b>Procedure to run feff:</b><p>
+
+<p><b>Sequential running:</b><br>
+Enter into the examples directory where the feff.inp file is present and run <b>feff</b> by typing <b>feff</b> at command prompt as below:</p>
+<p><b>$feff</b></p>
+
+<p><b>feff</b> will open the <b>feff.inp</b> file and start calculations.<br>
+Final output will be in <b>xmu.dat</b>, which can be viewed through <b>gnuplot</b></p>
+<p><b>Parallel running:</b></p>
+</div>
+
+
+
+
+
+<button onclick="ansys()">ANSYS</button><br><br>
+<div id="ansysDIV" style="display:none">
+<p>Procedure to invoke ANSYS in Workstations</p>
+<ul><li>Users can run ANSYS by clicking the workbench from the start menu  as depicted in the following screenshot.<br>
+<img src="Picture10.png"><br>
+<img src="Picture11.png"></li></ul>
+</div>
+
+
+
+
+
+
+<button onclick="sysweld()">SYSWELD</button><br><br>
+<div id="sysweldDIV" style="display:none">
+<p>Procedure to invoke SYSWELD  in Workstations</P>
+<ul><li>Users can run SYSWELD  by clicking the workbench from the start menu  as depicted in the following screenshot.<br>
+<img src="Picture12.png"><br>
+<img src="Picture13.png"><br>
+<img src="Picture14.png"></li></ul>
+</div>
+
+
+
+
+<button onclick="cfdace()">CFD-ACE</button><br><br>
+<div id="cfdaceDIV" style="display:none">
+<p>CFD-ACE Versions available in workstation:</P>
+<ul><li>CFD-ACE 2015</li>
+<li>CFD-ACE 2016</li></ul>
+<p>Procedure:</P>
+<ol><li>Go to the Start Menu, and click on “All Programs”<br>
+<img src="Picture15.jpg"></li><br>
+
+<li>Then navigate to the “ESI Group” icon or folder and click on it. Then click on the Advanced CFD submenu.
+This will show “Advanced CFD 2015.0” and “Advanced CFD 2015.0” folders. Click on the version you want to use.<br>
+<img src="Picture16.jpg"><br>
+<img src="Picture17.jpg"></li><br>
+
+
+<li>For using the CFD-ACE, click on “CFD-ACE”<br>
+<img src="Picture18.jpg"><br><br>
+The following Window is displayed:<br>
+<img src="Picture19.jpg"><br><br>
+After some time the CFD-ACE loads as below:<br>
+<img src="Picture20.jpg"></li></ol>
+</div>
+
+
+
+
+
+
+
+
+<section>
+ <h1>ABAQUS</h1>
+ <p>      The Abaqus Unified FEA product suite offers powerful and complete solutions for both routine
+ and sophisticated engineering problems covering a vast spectrum of industrial applications.
+ <br>In the automotive industry engineering work groups are able to consider full vehicle loads,
+ dynamic vibration, multibody systems, impact/crash, nonlinear static, thermal coupling,
+ and acoustic-structural coupling using a common model data structure and integrated solver technology. 
+</p>
+ </section>
+
+
+<section>
+ <h1>CFDEXPERT</h1>
+ <p>CFDExpert is an advanced multi-purpose CFD software for engineering design. 
+It has end-to-end capabilities from design to analysis. It provides accurate, fast, robust and efficient CFD solutions.
+ CFDExpert enables engineers to build virtual prototypes and simulate the performance of proposed and existing designs,
+thereby allowing them to improve design quality in a cost effective and time saving manner.</p>
+ <h2>Applications</h2>
+ <ul>
+<li>	Automobile, Aerospace & Marine Applications</li>
+ <li>	Nuclear & Oil/Gas Industry</li>
+ <li>	Turbomachinary, Pumps etc</li>
+ <li>	HVAC & Refrigereation</li>
+  <li>	Electrical Appliances</li>
+  <li>	Sports & Health Care</li>
+  <li>	Building Design optimizations</li>
+  <li>	Environmental Engineering</li>
+
+
+ </ul>
+  </section>
+
+
+<section>
+ <h1>COMSOL</h1>
+ <p>The COMSOL Multiphysics simulation environment facilitates all the steps in the modeling process – defining your geometry,
+ meshing, specifying your physics, solving, and then visualizing your results.
+ It also serves as a platform for the application specific modules.</p>
+<h2>Product suite</h2><br>
+<b>1.	ELECTRICAL</b>
+<ul>
+<li>AC/DC Module ver 6.1</li>
+ <!-- <li>RF Module</li> -->
+ <li>MEMS Module ver 5.31</li>
+<!--  <li>Plasma Module</li> -->
+ </ul>
+ <b>2.	MECHANICAL</b>
+<ul>
+<li>Heat Transfer Module ver 6.1 </li>
+ <li>	Structural Mechanics Module ver 6.1</li>
+ <li>	Nonlinear Structural Materials Module ver 5.31</li>
+ <!-- <li>Geomechanics Module</li>
+ <li>Fatigue Module </li>
+ <li>	Acoustics Module </li> -->
+ </ul>
+ <b>3.	FLUID</b>
+<ul>
+<li>Computational Fluid Dynamics (CFD) Module ver 6.1</li>
+ <li>	Microfluidics Module ver 4.4</li>
+ <li>	 Molecular Flow Module ver 4.4</li>
+<!--  <li>	Pipe Flow Module</li> -->
+ </ul>
+ <b>4.	CHEMICAL</b>
+<ul>
+<li>	Chemical Reaction Engineering Module ver 6.1</li>
+<!--  <li>	Batteries & Fuel Cells Module</li>-->
+ <li>Electrodeposition Module ver 4.4</li> 
+ <li>	Corrosion Module ver 6.1</li>
+ <li>	Electrochemistry Module ver 6.1</li>
+ 
+ </ul>
+  <b>5.	MULTIPURPOSE</b>
+<ul>
+<li>Optimization Module ver 5.31</li>
+ <li>Material Library ver 5.31</li>
+ <li>Particle Tracing Module ver 6.1</li>
+  <li>Wave Optics Module ver 5.31</li>
+  <li>Multibody Dynamics Module ver 4.4</li>
+   <li>MATLAB ver 5.31</li>
+    <li>AUTOCAD ver 6.1</li>
+    <li>CAD Import Module ver 6.1</li>
+  </ul>
+ </section>
+
+
+<section>
+ <h1>HyperMesh</h1>
+ <p>Altair HyperMesh is a high-performance finite element pre-processor to prepare even the largest models, 
+starting from import of CAD geometry to exporting an analysis run for various disciplines.</p>
+ <ul>
+<li>Solid Geometry Modeling</li>
+ <li>Shell Meshing</li>
+ <li>Model Morphing</li>
+ <li>Detailed Model Setup</li>
+ <li>Surface Geometry Modeling</li>
+ <li>Solid Mesh Generation</li>
+ <li>Automatic Mid-surface Generation</li>
+ <li>Batch Meshing</li>
+ </ul>
+  </section>
+
+<section>
+ <h1>LS-DYNA</h1>
+ <p>LS-DYNA is a general-purpose finite element program capable of simulating complex real world problems.
+ It is used by the automobile, aerospace, construction, military, manufacturing, and bioengineering industries.</p> 
+ <h2>Applications</h2>
+ <ul>
+<li>Automotive Crashworthiness & Occupant Safety</li>
+ <li>Metal Forming</li>
+ <li>Aerospace</li>
+ <li>Multiphysics</li>
+ <ol>
+<li>Incompressible CFD</li>
+ <li>Electromagnetics</li>
+ <li>CESE/ Compressible CFD and Chemistry</li>
+   </ol>
+  </ul>
+  </section>
+
+
+<section>
+ <h1>Mathematica</h1>
+ <p>Mathematica is a computational software program used in scientific, 
+engineering, and mathematical fields and other areas of technical computing.</p>
+ <h2>Mathematica Features</h2>
+ <ul>
+<li>Core Algorithms</li>
+ <li>Numerical Computing</li>
+ <li>Graphics & Visualization</li>
+ <li>Data Science</li>
+  <li>Application Areas</li>
+ </ul>
+  </section>
+
+
+<section>
+ <h1>PHOENICS</h1>
+ <p>Phoenics which simulates processes involving fluid flow, heat or mass transfer, 
+chemical reaction and combustion in engineering equipment and the environment.<br>
+PHOENICS is used in nearly every branch of engineering and science in which fluid flow plays a key role:-
+</p>
+<ul>
+<li>Aerospace</li>
+ <li>Automotive</li>
+ <li>Chemical</li>
+ <li>Combustion</li>
+ <li>Electronics Cooling</li>
+ <li>Metallurgical</li>
+ <li>Power Generation</li>
+ <li>Turbomachinery</li>
+ </ul>
+ </section>
+
+<section>
+ <h1>STAR-CD</h1>
+ <p>STAR-CD can perform reliable analysis of complex, multiscale transport phenomena in realistic industrial systems.
+ STAR-CD is a mature high-performance computational fluid dynamics (CFD) environment.
+</p>
+ </section>
+
+
+<section>
+ <h1>SYSWELD</h1>
+ <p>      SYSWELD is the leading software for the simulation of heat treatment,
+ welding and welding assembly processes, taking into account all aspects of material behavior, design and process.
+</p>
+ </section>
+
+
+<section>
+ <h1>WIEN2K</h1>
+ <p>WIEN2k perform electronic structure calculations of solids using density functional theory (DFT).
+ It is based on the full-potential (linearized) augmented plane-wave ((L)APW) + local orbitals (lo) method, 
+one among the most accurate schemes for band structure calculations. 
+WIEN2k is an all-electron scheme including relativistic effects and has many features.</p>
+ <h2>Calculated properties</h2>
+ <ul>
+<li>	Energy bands and density of states</li>
+ <li>	electron densities and spin densities, x-ray structure factors</li>
+ <li>	Baders's "atoms-in-molecule" concept</li>
+ <li>	total energy, forces, equilibrium geometries, structure optimization, molecular dynamics</li>
+  <li>	Phonons, with an interface to K.Parlinski's PHONON program</li>
+  <li>	electric field gradients, isomer shifts, hyperfine fields</li>
+  <li>	spin-polarization (ferro- or antiferromagnetic structures), spin-orbit coupling</li>
+  <li>	x-ray emission and absorption spectra, electron energy loss spectra</li>
+  <li>	optical properties</li>
+  <li>	fermi surfaces</li>
+  <li>	LDA, GGA, meta-GGA, LDA+U, orbital polarization</li>
+
+ </ul>
+  </section>
+</body>
+</section>

@@ -1,0 +1,6 @@
+Options -Indexes
+<Files ~ ".*\.(pdf|exe|gz|zip|html|ppt|doc|docx|pptx)">
+    order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1 #allow from localhost
+</Files>

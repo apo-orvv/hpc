@@ -1,0 +1,22 @@
+<body>
+<div align="center">
+ <div style="width:300px; border: solid 1px #006D9C; " align="left">
+
+<div style="background-color:#006D9C; color:#FFFFFF; padding:3px;"><b>Login</b></div>
+ <div style="margin:30px">
+
+<form action="index.php?hpcpage=login&action=submitform" method="POST">
+<label>Username
+</label><br/>
+<input id="username" value="" name="username" type="text" class="box" required="required"/>
+<br/><br/>
+<label> Password</label><br/>
+<input id="password" name="password" type="password" class="box" required="required" />
+<br/><br/>
+<input type="submit" name='submit' value="Submit" class='submit'/><br/>
+<label><i> Please enter HPC LDAP username and password </i> </label>
+</div>
+</div>
+</div>
+</form>
+</body>

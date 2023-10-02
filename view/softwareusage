@@ -1,0 +1,50 @@
+<section>
+<style>
+.button {
+    background-color: #008CBA;;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 25px 1px;
+    cursor: pointer;
+	width: 130px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div border="0">
+
+<form id='form1' method='post' action="index.php?hpcpage=systemdetails&systemname=Licenses&systemparam=Utilization_Day">
+<input class="button" type='submit' name='showswusage' value='Abaqus'>
+
+<input class="button"  type='submit' name='showswusage' value='Ansys_17'>
+
+<input class="button"  type='submit' name='showswusage' value='Ansys_18'>
+
+<input class="button"  type='submit' name='showswusage' value='Ansys_21'>
+
+<input class="button"  type='submit' name='showswusage' value='Comsol'>
+
+<input class="button"  type='submit' name='showswusage' value='CFD_SYSWELD'>
+
+<input class="button"  type='submit' name='showswusage' value='RECURDYN'>
+
+</form>
+
+
+</div>
+ 
+
+
+
+
+
+</body>
+</html>

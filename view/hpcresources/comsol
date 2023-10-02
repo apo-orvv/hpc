@@ -1,0 +1,46 @@
+
+    
+ <section>
+ <h1>COMSOL</h1>
+ <p>The COMSOL Multiphysics simulation environment facilitates all the steps in the modeling process – defining your geometry, meshing, specifying your physics, solving, and then visualizing your results. It also serves as a platform for the application specific modules.</p>
+<h2>Product suite</h2><br>
+<b>1.	ELECTRICAL</b>
+<ul>
+<li>AC/DC Module</li>
+ <li>RF Module</li>
+ <li>MEMS Module</li>
+ <li>Plasma Module</li>
+ </ul>
+ <b>2.	MECHANICAL</b>
+<ul>
+<li>Heat Transfer Module </li>
+ <li>	Structural Mechanics Module</li>
+ <li>	Nonlinear Structural Materials Module</li>
+ <li>Geomechanics Module</li>
+ <li>Fatigue Module </li>
+ <li>	Acoustics Module </li>
+ </ul>
+ <b>3.	FLUID</b>
+<ul>
+<li>Computational Fluid Dynamics (CFD) Module</li>
+ <li>	Microfluidics Module </li>
+ <li>	 Subsurface Flow Module</li>
+ <li>	Pipe Flow Module</li>
+ </ul>
+ <b>4.	CHEMICAL</b>
+<ul>
+<li>	Chemical Reaction Engineering Module </li>
+ <li>	Batteries & Fuel Cells Module</li>
+ <li>Electrodeposition Module </li>
+ <li>	Corrosion Module </li>
+ </ul>
+  <b>5.	MULTIPURPOSE</b>
+<ul>
+<li>Optimization Module</li>
+ <li>Material Library</li>
+ <li>Particle Tracing Module</li>
+  </ul>
+ </section>
+
+
+

@@ -1,0 +1,81 @@
+
+<style>
+ul{list-style-position:inside;}
+</style>
+   
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong>128 Node HPC Cluster</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Master Node(1 No),</strong><strong>&nbsp;</strong><strong>Compute Nodes (128 Nos)</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+    
+<ul>
+<li>Processor&nbsp;- Dual Quad Core 64 bit Intel Xeon at 3.16Ghz and 16GB RAM</li>
+<li>Cluster&nbsp;- 128 node, 1024 Processor Cores and 2TB of Memory </li>
+<li>Performance&nbsp;- system performance of 9.5 Tera FLOPS. SMP Linpack of each node is 81 GFLOPS</li>
+<li>Interconnects&nbsp;- Infiniband 144 DDR 4X 20 Gbps networks and two Gigabit Ethernet networks</li>
+<li>Storage&nbsp;- 24 Tera Byte Unified Storage & GlusterFS NUFA distributed storage of 20 TByte</li>
+<li>Backup&nbsp;- Automated Tape Library with 4 LTO-3 drives and 48 media slots to backup upto 38.4 TB</li>
+<li>Operating System&nbsp;- Red Hat Enterprise Linux 5.1</li>
+</ul>
+</td>
+
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Compilers, Libraries and Development Tools</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Intel &nbsp;C/C++ and Fortran Compilers</li>
+<li>GNU &nbsp;C, C++ and Fortran-77 Compilers</li>
+<li>Intel idb, GNU gdb</li>
+<li>Intel Trace Collector and Trace Analyzer</li>
+<li>PGI workstation compiler</li>
+<li>Intel Debugger</li>
+<li>Intel cluster Math Kernel Library&nbsp;</li>
+<li>MPICH, MVAPICH, OpenMPI, Intel MPI and PVM Parallel APIs</li>
+<li>Engineering libraries  ATLAS, BLOCKSOLVE, F2CBLASLAPACK, FFTW, LAPACK, SCALAPACK, BLACS, CBLAS, FBLASLAPACK, NETCDF, SUPERLU, BLAS, HDFPETSC </li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Application Softwares</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>ABAQUS<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Non-linear Finite Element Analysis Software</em></strong></li>
+<li>LS-DYNA<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Adv. Non-linear Finite Element Analysis Software</em></strong></li>
+<li>CFD-PHOENICS<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Computational Fluid Dynamics Software</em></strong></li>
+<li>CASTEM<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Finite Element Analysis Software</em></strong></li>
+<li>HYPERMESH<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>High-performance Finite Element Pre- & Post-processor</em></strong></li>
+<li>SYSWELD<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Welding and Heat Treatment Simulation Software</em></strong></li>
+<li>FLUIDYN<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Computational Fluid Dynamics Software</em></strong></li>
+<li>IGCSolve<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Computational Fluid Dynamics Software</em></strong></li>
+<li>XCrySDEN<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;<em>Crystalline and molecular structure visualization program run under a X window </em></strong></li>
+<li>WIEN2K<strong>&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;<em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Molecular Dynamics/DFT codes</em></strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+          </tr>    
+        </table>
+
+
+

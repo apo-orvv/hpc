@@ -1,0 +1,67 @@
+
+<style>
+ul{list-style-position:inside;}
+</style>    
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong>GPU based HPC Cluster System</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Master Node(1 No),</strong><strong>&nbsp;</strong><strong>Compute Nodes (4 Nos)</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+<ul>
+<li>Processor&nbsp;- Dual Six&nbsp;Core 64 bit Intel Xeon @ 3.06 Ghz and 48/96 GB RAM</li>
+<li>Graphics Processor&nbsp;- NVIDIA Tesla 2090 GPU 12 Nos.</li>
+<li>Cluster&nbsp;- 4 node, 48 Processor core</li>
+<li>Performance&nbsp;- system performance of 3.8 Tera FLOPS </li>
+<li>Interconnects&nbsp;- Infiniband 40 Gbps Two Gigabit Ethernet</li>
+<li>Storage&nbsp;- 4.8 Tera Byte Unified Storage </li>
+<li>Operating System&nbsp;- Red Hat Enterprise Linux 6.2</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Compilers, Libraries and Development Tools</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Intel &nbsp;C/C++ and Fortran Compilers</li>
+<li>GNU &nbsp;C, C++ and Fortran-77 Compilers</li>
+<li>Intel idb, GNU gdb, dmalloc, ElectricFence Debuggers</li>
+<li>Intel Trace Collector and Trace Analyzer</li>
+<li>Intel Cluster Math Kernel Library&nbsp;</li>
+<li>OSS libraries: FFTW,Blaces, Scalapack, PETSc, Netcdf, BlockSolve95, and SuperLU</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Application Softwares</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Quantum Espresso<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Electronic-structure and Materials Modeling Software</em></strong></li>
+<li>NAMD<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Molecular Dynamics simulation Software</em></strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+          </tr>    
+        </table>
+
+
+

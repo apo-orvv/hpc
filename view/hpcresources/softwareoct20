@@ -1,0 +1,1074 @@
+<section>
+<style>
+.button {
+    background-color: #008CBA;;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	width: 155px;
+}
+</style>
+
+</head>
+
+
+<body>
+<table width="100%"> <tr> <td style="text-align:center;border:0;font-size:18px" > <b> List of Software available in HPC Computing Systems </b> 
+</br> <p style="color:red"> "Click each of the button to know more about the software and invoking procedure" </p> </td> <tr>
+
+ </table>
+ <table width="100%" style="border:0">
+<tr><td style="border:0"><button  class="button" onclick="abaqus()">ABAQUS</button></td>
+<td style="border:0"> <button  class="button"onclick="ansys()">ANSYS</button></td>
+<td style="border:0"><button  class="button"onclick="cfdace()">CFD-ACE</button></td>
+<td style="border:0"><button  class="button" onclick="cfdexpert()" >CFD EXPERT</button></td>
+<td style="border:0"><button  class="button" onclick="comsol()">COMSOL</button></td>
+<td style="border:0"><button  class="button"onclick="feff()">FEFF</button></td>
+</tr>
+
+ 
+<tr style="border:0"> <td style="border:0"><button  class="button"onclick="fluka()">Fluka</button></td>
+<td style="border:0"><button  class="button"onclick="octave()">GNU Octave</button></td>
+<td style="border:0"><button  class="button"onclick="damask()">DAMASK</button></td>
+<td style="border:0"><button  class="button" onclick="hypermesh()">HYPERMESH</button></td>
+<td style="border:0"><button  class="button" onclick="lsdyna()">LS-DYNA</button></td>
+<td style="border:0"><button  class="button" onclick="math()">MATHEMATICA</button></td></tr> 
+<!-- <td style="border:0"><button  class="button" onclick="mcnp()">MCNP</button></td> -->
+
+<tr style="border:0"> <td style="border:0"><button  class="button" onclick="phoenics()">PHOENICS</button></td>
+<td style="border:0"><button  class="button" onclick="openfoam()">Open FOAM</button></td>
+<td style="border:0"><button  class="button" onclick="star()">STAR-CD</button></td>
+<td style="border:0"><button  class="button"onclick="sysweld()">SYSWELD</button></td>
+<td style="border:0"><button  class="button"onclick="thermocalc()">THERMOCALC</button></td>
+<td style="border:0"><button  class="button"onclick="vasp()">VASP</button></td></tr>
+
+<tr style="border:0">
+<td style="border:0"><button  class="button"onclick="vnlatk()">VNL and ATK</button></td> 
+<td style="border:0"><button  class="button" onclick="wien2k()">WIEN2K</button></td> </tr>
+</table><br>
+
+
+
+
+
+<div id="div1" style= "display:none">
+<table align="center" width="95%" border="1"> <tr> <td align="justify" bgcolor=""> 
+
+ <p padding="5px">      The Abaqus Unified FEA product suite offers powerful and complete solutions for both routine
+ and sophisticated engineering problems covering a vast spectrum of industrial applications.
+ <br>In the automotive industry engineering work groups are able to consider full vehicle loads,
+ dynamic vibration, multibody systems, impact/crash, nonlinear static, thermal coupling,
+ and acoustic-structural coupling using a common model data structure and integrated solver technology. 
+</p>
+
+</td> </tr> 
+<tr> <td style="text-align:center" bgcolor="DodgerBlue"> <b> Job submission procedure in IVY cluster <b> </td> </tr> 
+<tr> <td align="justify" > 
+<p>The Abaqus software version 2017 installed in IVY cluster is integrated with the job scheduler SLURM. 
+The procedure for submitting Abaqus jobs (along with User Subroutines) through the job scheduler (SLURM) on IVY cluster is as follows 
+(<b>to run without user subroutine, skip steps 5 and 6</b>):
+</P>
+<ol type="1" style="padding-left:30px">
+<li> Login to the head node of IVY Cluster (10.1.2.3)</li>
+<li> create a directory in your home folder for the job you want to execute, with following command:<br><b>mkdir job1</b></li>
+<li> Switch to this directory with<br><b>cd job1</b></li>
+<li> Place the input file (eg: job1.inp) and user subroutine file (job1.f) in this job1 directory</li>
+<li> Execute the following command to find present working directory:<br><b>pwd</b><br>This will return the absolute path for your job folder
+<br>Eg: <b>/home/&lt;group&gt;/&lt;user&gt;/job1</b></li>
+
+<li>Issue the following command for compiling the user subroutine:<br>
+<b>abq2017 make library=job1.f directory=[absolute path to job folder]</b><br>
+Replace <b>[absolute path to job folder]</b> with the output of "pwd" command in step 5<br>
+Eg: <b>abq2017 make library=job1.f directory=/home/<&lt;group&gt;/&lt;user&gt;/job1</b><br>
+Note: the value assigned to directory attribute above must be the absolute path to the job folder "job1"</li>
+
+<li>Submit Abaqus job with the command below:</br>
+<b>abq2017 job=&lt;input file name&gt; cpus=&lt;no. of cpus&gt;</b><br>
+Eg: <b>abq2017 job=job1 cpus=4</b><br>
+The above command will submit the job through SLURM and allocate the number of cpus specified with the "cpus" option. The “job id” of 
+the submitted job will be displayed.<br>
+Eg: <b>Submitted batch job &lt;job id&gt;</b><br>
+<b>Note: For running the job on a single node of IVY cluster, the value of “cpus” option can be from 1 to 24, 
+as there are 24 CPU cores in 1 node of IVY cluster. To run on multiple nodes, the value of “cpus” option must be a multiple of 24 i.e. 48, 72, 96 …
+</b></li>
+</td> </tr> 
+
+<tr> <td style="text-align:center" bgcolor="DodgerBlue"> <b> Monitoring the job </b></td> </tr> 
+<tr> <td> 
+<p> You can monitor the job with the following command:<br><b>squeue</b></p>
+
+<p> When the job is running, the output files and temporary files will be created in the user’s scratch directory 
+(i.e. /apps/scratch/&lt;group&gt;/&lt;user&gt;). After the job completes, the output files (i.e. job1.msg, job1.odb, job1.dat etc.) 
+will be copied to a job specific sub-directory in the job submission directory of the user’s home folder.<br>
+Eg: <b>/home/&lt;group&gt;/&lt;user&gt;/job1/&lt;job id&gt;_abaqus_&lt;job name&gt;</b></p></ol>
+
+<p>To monitor the job's output and log files during the job run, you can switch to the scratch directory with the following command:<br>
+<b>shm</b><p>
+<p>To switch back to home directory<br><b>uhm</b><p>
+<p>To list the files in scratch directory:<br><b>ls $SHOME</b><p>
+</td> </tr>
+<tr> <td style="text-align:center" bgcolor="DodgerBlue"> 
+<b> Job submission procedure in Neha cluster </b></td> </tr>
+<tr> <td> 
+<p>1. Login to the head node of Neha cluster (10.1.2.2)</p>
+<p>2. Go to the directory containing abaqus input file</p>
+<p>3. Submit Abaqus job with the command below:</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; abaqus job=&lt;input file name&gt; -cpus &lt;no. of cpus&gt;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; eg: $ abaqus job=c1 -cpus 4</p>
+<p>&nbsp; &nbsp;The above command will submit the job through SGE and allocate the&nbsp; number of cpus specified with the "-cpus" option.</p>
+<p>4. You can monitor the job with the following command:</p>
+<p>&nbsp; &nbsp; &nbsp;$ qstat</p>
+</td> </tr>
+<tr> <td align="center" bgcolor="DodgerBlue" style="text-align:center"> Procedure to invoke ABAQUS on workstations</td> </tr>
+<tr> <td >
+
+<p>Abaqus Versions available in workstation:</p>
+<ul style="padding-left:50px"><li>Abaqus 2016</li><li>Abaqus 2017</li></ul>
+
+<p>Procedure:</p>
+<ol type="1" style="padding-left:30px"><li>Go to the Start Menu, and click on “All Programs”</li>
+<img height="380" width="350" src="/view/hpcresources/Picture1.jpg"><br><br>
+
+<li>Then navigate to the “DassaultSystemes SIMULIA Abaqus CAE 2016” or “DassaultSystemes SIMULIA Abaqus CAE 2017” folder 
+(depending on the Abaqus version you want to use) and click on it.</li>
+<table> <tr> <td style="padding-left:30px"> 
+<img height="380" width="350" src="/view/hpcresources/Picture2.jpg"> </td>
+<td style="padding-left:30px"> <img height="380" width="350" src="/view/hpcresources/Picture3.jpg"> </td> </tr> </table>
+<li>For using the Abaqus CAE, click on “Abaqus CAE”</li> 
+<img height="380" width="350" src="/view/hpcresources/Picture4.jpg"> 
+ <table> <tr> <td style="padding-left:30px">
+<p>The licenses are checked out and the following Window is displayed, indicating the no. of licenses remaining </td> 
+<td style="padding-left:30px">After some time the Abaqus CAE loads as below: </td> </tr>
+<tr> <td>
+<img height="380" width="350" src="/view/hpcresources/Picture5.jpg"> </td> </p>
+<td style="padding-left:30px"> <img height="380" width="350" src="/view/hpcresources/Picture6.jpg"> </td> </tr> </table>
+
+<table> <tr> <td>
+<li>For using the Abaqus Viewer, click on “Abaqus Viewer”. The licenses are checked out and the following Window is displayed,
+ indicating the no. of licenses remaining<br> </td>   <td> <p>After some time the Abaqus Viewer loads as below: </td> </tr>
+ <tr> <td style="padding-left:30px"> 
+ <img height="380" width="350" src="/view/hpcresources/Picture7.jpg"></li> </td> 
+<td>
+<img height="380" width="350" src="/view/hpcresources/Picture8.jpg"></p></ol><br> </td> </tr> </table>
+</td> </tr> </table>
+</div> 
+
+<div id="div2" style="display:none">
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p style="padding-left:30px;text-align:justify"> ANSYS is a general purpose software, used to simulate interactions of all disciplines of physics, structural, vibration, fluid dynamics, 
+heat transfer and electromagnetic for engineers. </p>
+
+<p style="padding-left:30px;text-align:justify"> So ANSYS, which enables to simulate tests or working conditions, 
+enables to test in virtual environment before manufacturing prototypes of products. 
+Furthermore, determining and improving weak points, computing life and foreseeing probable problems are possible by 3D 
+simulations in virtual environment </p>
+
+<p style="padding-left:30px;text-align:justify"> ANSYS software with its modular structure as seen in the table below gives an 
+opportunity for taking only needed features. ANSYS can work integrated with other used engineering software on 
+desktop by adding CAD and FEA connection modules. </p>
+
+<tr> <td style="text-align:center" bgcolor="DodgerBlue"> <b> ANSYS - Fluent Job submission procedure in IVY cluster <b> </td> </tr> 
+<tr> <td align="justify" > 
+<p>The ANSYS software is installed in IVY cluster is integrated with the job scheduler SLURM. 
+The procedure for submitting ANSYS jobs (along with User Subroutines) through the job scheduler (SLURM) on IVY cluster is as follows:
+</P>
+<p> Script for invoking the Fluent: </p>
+<ol type="1" style="padding-left:30px">
+<li> Login to the head node of IVY Cluster (10.1.2.3)</li>
+<li> create a directory in your home folder for the job you want to execute, with following command:<br><b>mkdir job1</b></li>
+<li> Switch to this directory with<br><b>cd job1</b></li>
+<li> Upload the journal(input.jou) & mesh(.msh)/case(.cas)/data(.dat) file to the job directory  </li>
+<li> Issue the command from the users job directory for invoking the fluent Script: <br><b> /ansys_inc/run_fluent.sh 3ddp 1hpc / 2hpc </b> </li> 
+</ol>
+
+<p style="padding-left:20px"> <b> Arguments: </b></p>
+<li style="padding-left:30px"> run_fluent.sh – Script file for submitting into the queue </li>
+<li style="padding-left:30px"> 3ddp – Name of the profiler </li>
+<li style="padding-left:30px" > 1hpc – To consume 1hpc pack </li>
+<li style="padding-left:30px"> 2hpc – To consume 2hpc pack </li>
+<p> 1hpc / 2hpc argument in turn will copy the fluent_1hpc.sh /  fluent_2hpc.sh from /apps/ansys_inc to the users launch directory. </p>
+</td> </tr>
+<tr> <td style="text-align:center" bgcolor="DodgerBlue"> <b> ANSYS - Mechanical Job submission procedure in IVY cluster <b> </td> </tr> 
+<tr> <td align="justify" > 
+<ol type="1" style="padding-left:30px">
+<li> Login to the head node of IVY Cluster (10.1.2.3)</li>
+<li> create a directory in your home folder for the job you want to execute, with following command:<br><b>mkdir job1</b></li>
+<li> Switch to this directory with<br><b>cd job1</b></li>
+<li> Place the input file (eg: job1.dat) in this job1 directory</li>
+<li> Copy the script file "run_mech.sh" from the /apps/ansys_inc182 folder to this job1 directory.
+</br><b>Modify the following parametrs in the "run_mech.sh" which is shown in red color </b>
+</br> /apps/ansys_inc182/v182/ansys/bin/ansys182 -dis -b -dir  <b style="color:red">full path of the users job directory</b> -mpi PCMPI -j <b style="color:red"> Job name </b>  -machines ${mech_hosts%%:} -i <b style="color:red">  input file name</b>  -o <b style="color:red">  output file name </b> </br>
+</br> <b tyle="color:blue"> Example: </b>  </br>
+ /apps/ansys_inc182/v182/ansys/bin/ansys182 -dis -b -dir  <b style="color:red">/home/&lt;group&gt;/&lt;user&gt;/job1</b> -mpi PCMPI -j <b style="color:red"> test_mech </b>  -machines ${mech_hosts%%:} -i <b style="color:red">  job1.dat </b>  -o <b style="color:red">  job1.out </b>
+<li>Submit ANSYS mechanical job with the command below from your job1 directory:
+</br><b> sbatch -n <b style="color:red">Number of cores</b> -N <b style="color:red">Number of nodes</b> ./run_mech.sh </b>
+</br><b> Example: </br> <b>sbatch -n 48 -N 2 ./run_mech.sh </b>
+</td> </tr>
+
+<tr> <td style="text-align:center" bgcolor="DodgerBlue"> <b> Monitoring the job </b></td> </tr> 
+<tr> <td> 
+<p> You can monitor the job with the following command:<br><b>squeue</b></p>
+
+<p> When the job is running, the output files will be created in the user’s job directory 
+(i.e. /home/&lt;group&gt;/&lt;user&gt;/job1). 
+</td> </tr>
+<tr> <td style="text-align:center" bgcolor="DodgerBlue"> <b> Procedure to invoke ANSYS in Workstations <b> </td> </tr> 
+<tr> <td align="justify" >
+<ul style="padding-left:30px" ><li>Users can run ANSYS by clicking the workbench from the start menu  as depicted in the following screenshot.<br>
+<img height="380" width="350" src="/view/hpcresources/Picture10.png"><br>
+<img height="380" width="350" src="/view/hpcresources/Picture11.png"></li></ul>
+</td> </tr> </table>
+</div>
+
+
+
+<div id="div3" style="display:none">
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p>CFD-ACE Versions available in workstation:</P>
+<ul style="padding-left:30px" ><li>CFD-ACE 2015</li>
+<li>CFD-ACE 2016</li></ul>
+<p>Procedure:</P>
+<ol style="padding-left:30px" ><li>Go to the Start Menu, and click on “All Programs”<br>
+<img height="380" width="350" src="/view/hpcresources/Picture15.jpg"></li><br>
+
+<li>Then navigate to the “ESI Group” icon or folder and click on it. Then click on the Advanced CFD submenu.
+This will show “Advanced CFD 2015.0” and “Advanced CFD 2015.0” folders. Click on the version you want to use.<br>
+<img height="380" width="350" src="/view/hpcresources/Picture16.jpg"><br>
+<img height="380" width="350" src="/view/hpcresources/Picture17.jpg"></li><br>
+
+
+<li>For using the CFD-ACE, click on “CFD-ACE”<br>
+<img height="380" width="350" src="/view/hpcresources/Picture18.jpg"><br><br>
+The following Window is displayed:<br>
+<img height="380" width="350" src="/view/hpcresources/Picture19.jpg"><br><br>
+After some time the CFD-ACE loads as below:<br>
+<img height="380" width="350" src="/view/hpcresources/Picture20.jpg"></li></ol>
+</td> </tr> </table>
+</div>
+
+
+
+
+<div id="div4" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p>CFDExpert is an advanced multi-purpose CFD software for engineering design. 
+It has end-to-end capabilities from design to analysis. It provides accurate, fast, robust and efficient CFD solutions.
+ CFDExpert enables engineers to build virtual prototypes and simulate the performance of proposed and existing designs,
+thereby allowing them to improve design quality in a cost effective and time saving manner.</p>
+ <h2>Applications</h2>
+
+ <ul style="padding-left:30px" >
+    <li>	Automobile, Aerospace & Marine Applications</li>
+    <li>	Nuclear & Oil/Gas Industry</li>
+    <li>	Turbomachinary, Pumps etc</li>
+    <li>	HVAC & Refrigereation</li>
+    <li>	Electrical Appliances</li>
+    <li>	Sports & Health Care</li>
+    <li>	Building Design optimizations</li>
+    <li>	Environmental Engineering</li>
+</ul>
+</td> <tr> </table>
+</section>
+</div>
+
+
+
+
+<div id="div5" style= "display:none">
+<section>
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p>COMSOL Multiphysics is a general-purpose software platform, based on advanced numerical methods, for modeling and simulation of physics-based problems. The software provides an integrated desktop environment with a Model Builder that gives a full overview of the model and access to all functionality. COMSOL Multiphysics can be used to extend conventional models for one type of physics into multiphysics models that solve coupled physics phenomena simultaneously.
+When solving the models, the COMSOL Multiphysics software assembles and solves the problem using a set of advanced numerical analysis tools. The software can run the analysis together with adaptive meshing and error control using a variety of numerical solvers. The studies can make use of multiprocessor systems and cluster computing, and one can run batch jobs and parametric sweeps. 
+To take advantage of cluster computing for COMSOL Jobs, COMSOL Multiphysics has been installed on IVY cluster. The COMSOL GUI is installed on High-end Workstations and the head node of IVY cluster.
+</p>
+<h2>Product suite</h2><br>
+<b>1.	ELECTRICAL</b>
+<ul style="padding-left:50px;">
+<li>AC/DC Module</li>
+ <li>RF Module</li>
+ <li>MEMS Module</li>
+ <li>Plasma Module</li>
+ </ul>
+ <b>2.	MECHANICAL</b>
+<ul style="padding-left:50px;">
+<li>Heat Transfer Module </li>
+ <li>	Structural Mechanics Module</li>
+ <li>	Nonlinear Structural Materials Module</li>
+ <li>Geomechanics Module</li>
+ <li>Fatigue Module </li>
+ <li>	Acoustics Module </li>
+ </ul>
+ <b>3.	FLUID</b>
+<ul style="padding-left:50px;">
+<li>Computational Fluid Dynamics (CFD) Module</li>
+ <li>	Microfluidics Module </li>
+ <li>	 Subsurface Flow Module</li>
+ <li>	Pipe Flow Module</li>
+ </ul>
+ <b>4.	CHEMICAL</b>
+<ul style="padding-left:50px;">
+<li>	Chemical Reaction Engineering Module </li>
+ <li>	Batteries & Fuel Cells Module</li>
+ <li>Electrodeposition Module </li>
+ <li>	Corrosion Module </li>
+ </ul>
+  <b>5.	MULTIPURPOSE</b>
+<ul style="padding-left:50px;">
+<li>Optimization Module</li>
+ <li>Material Library</li>
+ <li>Particle Tracing Module</li>
+  </ul>
+  
+  <table  width="100%"> <tr> <td style="text-align:center;font-size:18px" bgcolor="DodgerBlue"> <b>  Running COMSOL job through SLURM job scheduler on Ivy cluster <b> </td>
+  </tr> 
+<tr> <td>
+<p><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">1. Create a job submission directory in the home folder.</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">eg: </span></p>
+<p style="padding-left: 30px;"><strong><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">$ mkdir comsoljob</span></strong></p>
+<p style="padding-left: 30px;"><strong><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">$ cd comsoljob</span></strong></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">Place the input file in this directory.</span></p>
+<p><span style="font-family: Arial, sans-serif; font-size: 10pt;">2. Create the SLURM script -&nbsp;&ldquo;slurmcomsol.sh&rdquo;, in the job submission directory as follows:</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">&nbsp; #!/bin/bash<br />&nbsp; #SBATCH --error=comsoljob.%J.err<br />&nbsp; #SBATCH --output=comsoljob.%J.out</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">&nbsp; #SBATCH --cpus-per-task=24<br />&nbsp; #SBATCH -p all.q</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">&nbsp; &nbsp;inputFile="<strong><span style="font-family: 'Arial','sans-serif';">&lt;input file name&gt;</span></strong>"<br />&nbsp; outputFile="<strong><span style="font-family: 'Arial','sans-serif';">&lt;output file name&gt;</span></strong>"</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">&nbsp; JOB_DIR="$SLURM_JOBID"_comsol<br />&nbsp; SCRATCH_DIR=/tmp/$JOB_DIR<br />&nbsp; mkdir ${SCRATCH_DIR}<br />&nbsp; cp $inputFile ${SCRATCH_DIR}</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">&nbsp; /apps/comsol53a/multiphysics/bin/glnxa64/comsol batch -clustersimple -np $SLURM_CPUS_PER_TASK -inputfile $SCRATCH_DIR/$inputFile -outputfile $SCRATCH_DIR/$outputFile -tmpdir /tmp</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">&nbsp; mv ${SCRATCH_DIR} ./<br />&nbsp; </span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">Replace the <strong><span style="font-family: 'Arial','sans-serif';">&lt;input file name&gt;</span></strong> with the name of the input file (eg: "micromixer_cluster.mph") and <strong><span style="font-family: 'Arial','sans-serif';">&lt;output file name&gt;</span></strong> with the name of output file (eg: "micromixer_cluster_out.mph").</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">3. To run the job in shared memory mode on one node of IVY cluster (with 24 cpu cores),&nbsp;submit with:</span></p>
+<p style="padding-left: 30px;"><strong><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">$ sbatch slurmcomsol.sh</span></strong></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">To run the job in Hybrid mode on multiple nodes of IVY cluster&nbsp;(using MPI across the nodes and OpenMP within the node), submit with:</span></p>
+<p style="padding-left: 30px;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';"><strong><span style="font-family: 'Arial','sans-serif';">$ sbatch -N&nbsp;&lt;no. of nodes&gt; slurmcomsol.sh</span></strong></span></p>
+<p style="margin-bottom: 12.0pt;"><span style="font-size: 10.0pt; font-family: 'Arial','sans-serif';">This will distribute the COMSOL job across specified number of nodes. There will be one COMSOL task (MPI process) created on each node and each task will in-turn utilize all the CPU cores available in the node (i.e. 24 CPU cores in one node of IVY cluster)&nbsp;with shared&nbsp;memory parallelism.</span></p>
+<p style="margin-bottom: 12.0pt;"><span style="font-family: Arial, sans-serif; font-size: 10pt;">4. The output file will be available in the job submission directory, once the job has completed. You can monitor the status of the job with the "</span><strong style="font-family: Arial, sans-serif; font-size: 10pt;"><span style="font-family: 'Arial','sans-serif';">squeue</span></strong><span style="font-family: Arial, sans-serif; font-size: 10pt;">"&nbsp;command.</span></p>
+ </td> </tr> </table>
+ </td> </tr> </table>
+ </section>
+ </div>
+ 
+
+
+
+<div id="div6" style="display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p><b>Procedure to run feff:</b><p>
+
+<p><b>Sequential running:</b><br>
+Enter into the examples directory where the feff.inp file is present and run <b>feff</b> by typing <b>feff</b> at command prompt as below:</p>
+<p><b>$feff</b></p>
+
+<p><b>feff</b> will open the <b>feff.inp</b> file and start calculations.<br>
+Final output will be in <b>xmu.dat</b>, which can be viewed through <b>gnuplot</b></p>
+<p><b>Parallel running:</b></p>
+</td> <tr> </table>
+  </section>
+  </div>
+
+<div id="div7" style= "display:none">
+<section>
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p>Altair HyperMesh is a high-performance finite element pre-processor to prepare even the largest models, 
+starting from import of CAD geometry to exporting an analysis run for various disciplines.</p>
+ <ul style="padding-left:30px" >
+<li>Solid Geometry Modeling</li>
+ <li>Shell Meshing</li>
+ <li>Model Morphing</li>
+ <li>Detailed Model Setup</li>
+ <li>Surface Geometry Modeling</li>
+ <li>Solid Mesh Generation</li>
+ <li>Automatic Mid-surface Generation</li>
+ <li>Batch Meshing</li>
+ </ul>
+  </td> <tr> </table>
+  </section> 
+  </div>
+
+<div id="div8" style= "display:none">
+<section>
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+ 
+ <p>LS-DYNA is a general-purpose finite element program capable of simulating complex real world problems.
+ It is used by the automobile, aerospace, construction, military, manufacturing, and bioengineering industries.</p> 
+ <h2>Applications</h2>
+ <ul style="padding-left:30px" >
+<li>Automotive Crashworthiness & Occupant Safety</li>
+ <li>Metal Forming</li>
+ <li>Aerospace</li>
+ <li>Multiphysics</li>
+ <ol style="padding-left:30px" >
+<li>Incompressible CFD</li>
+ <li>Electromagnetics</li>
+ <li>CESE/ Compressible CFD and Chemistry</li>
+   </ol>
+  </ul>
+   </td> <tr> </table>
+  </section>
+  
+  </div>
+
+
+
+
+
+
+<div id="div9" style= "display:none">
+<section>
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+  <p>Mathematica is a computational software program used in scientific, 
+engineering, and mathematical fields and other areas of technical computing.</p>
+ <h2>Mathematica Features</h2>
+ <ul style="padding-left:30px" >
+<li>Core Algorithms</li>
+ <li>Numerical Computing</li>
+ <li>Graphics & Visualization</li>
+ <li>Data Science</li>
+  <li>Application Areas</li>
+ </ul>
+  </td> <tr> </table>
+  </section>
+  </div>
+
+
+
+
+
+<div id="div10" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <p>Phoenics which simulates processes involving fluid flow, heat or mass transfer, 
+chemical reaction and combustion in engineering equipment and the environment.<br>
+PHOENICS is used in nearly every branch of engineering and science in which fluid flow plays a key role:-
+</p>
+<ul style="padding-left:30px" >
+<li>Aerospace</li>
+ <li>Automotive</li>
+ <li>Chemical</li>
+ <li>Combustion</li>
+ <li>Electronics Cooling</li>
+ <li>Metallurgical</li>
+ <li>Power Generation</li>
+ <li>Turbomachinery</li>
+ </ul>
+ </td> <tr> </table>
+  </section>
+  </div>
+
+
+
+
+
+<div id="div11" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ 
+ <p>STAR-CD can perform reliable analysis of complex, multiscale transport phenomena in realistic industrial systems.
+ STAR-CD is a mature high-performance computational fluid dynamics (CFD) environment.
+</p>
+ </td> <tr> </table>
+  </section>
+  </div>
+
+
+
+
+<div id="div12" style="display:none">
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p>Procedure to invoke SYSWELD  in Workstations</P>
+<ul style="padding-left:30px" ><li>Users can run SYSWELD  by clicking the workbench from the start menu  as depicted in the following screenshot.<br>
+<img height="380" width="350" src="/view/hpcresources/Picture12.png"><br>
+<img height="380" width="350" src="/view/hpcresources/Picture13.png"><br>
+<img height="380" width="350" src="/view/hpcresources/Picture14.png"></li></ul>
+</td> </tr> </table>
+</div>
+
+
+
+
+<div id="div13" style="display:none">
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p>Procedure to invoke Thermocalc in Workstations</P>
+<ul style="padding-left:30px" ><li>Users can run Thermocalc 2016a by clicking the <b>Thermo-Calc-2106a</b> icon on the desktop as depicted in the following screenshot.<br>
+<img height="380" width="350" src="/view/hpcresources/Picture9.png"></li></ul><br>
+</td> </tr> </table>
+</div>
+
+
+
+
+<div id="div14" style="display:none">
+<table width="90%" border="1" align="center"> <tr> <td padding="2">
+<p>Procedure to run VNL and ATK</p>
+
+<ol type="1"><li>VNL can be launched by running ‘vnl’ from the command line.<br>
+<b>Note: Before running VNL user must login to a GUI session on the head node first.</b><br># vnl</li><br>
+
+<li>Running ATK scripts is possible through VNL  or through the command line. For invoking through command line, start it a below:<br> 
+	# atkpython script.py &gt; logfile.log<br>
+For running the parallel version it can be invoked as below:<br>
+	# mpirun -n 4 –f machinefile atkpython test_mpi.py</li><br>
+
+<li>For running through slurm<br>
+Take a copy of <b>/home/slurm_templet/slurmScriptVnlAtk.sh</b> to the user home directory and modify Line no 8, 9 and 20 as required.<br>
+Then submit the batch job by running the following command:<br>
+	# sbatch –N &lt;no. Of nodes to use for this job&gt; slurmScriptVnlAtk.sh</li></ol><br>
+</td> </tr> </table>
+</div>
+
+<div id="div15" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p>WIEN2k perform electronic structure calculations of solids using density functional theory (DFT).
+ It is based on the full-potential (linearized) augmented plane-wave ((L)APW) + local orbitals (lo) method, 
+one among the most accurate schemes for band structure calculations. 
+WIEN2k is an all-electron scheme including relativistic effects and has many features.</p>
+ <h2>Calculated properties</h2>
+ <ul style="padding-left:30px" >
+<li>	Energy bands and density of states</li>
+ <li>	electron densities and spin densities, x-ray structure factors</li>
+ <li>	Baders's "atoms-in-molecule" concept</li>
+ <li>	total energy, forces, equilibrium geometries, structure optimization, molecular dynamics</li>
+  <li>	Phonons, with an interface to K.Parlinski's PHONON program</li>
+  <li>	electric field gradients, isomer shifts, hyperfine fields</li>
+  <li>	spin-polarization (ferro- or antiferromagnetic structures), spin-orbit coupling</li>
+  <li>	x-ray emission and absorption spectra, electron energy loss spectra</li>
+  <li>	optical properties</li>
+  <li>	fermi surfaces</li>
+  <li>	LDA, GGA, meta-GGA, LDA+U, orbital polarization</li>
+ </ul>
+  </td> <tr> </table>
+  </section>
+  </div>
+ 
+ <div id="div16" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p><strong>FLUKA</strong></p>
+<p style="text-align: justify;">FLUKA is a general purpose tool for calculations of particle transport and interactions with matter, covering an extended range of applications spanning from proton and electron accelerator shielding to target design, calorimetry, activation, dosimetry, detector design, Accelerator Driven Systems, cosmic rays, neutrino physics, radiotherapy etc.</p>
+<p style="text-align: justify;">FLUKA can simulate with high accuracy the interaction and propagation in matter of about 60 different particles, including photons and electrons from 1 keV to thousands of TeV, neutrinos, muons of any energy, hadrons of energies up to 20 TeV (up to 10 PeV by linking FLUKA with the DPMJET code) and all the corresponding antiparticles, neutrons down to thermal energies and heavy ions. The program can also transport polarised photons (e.g., synchrotron radiation) and optical photons. Time evolution and tracking of emitted radiation from unstable residual nuclei can be performed online.</p>
+<p style="text-align: justify;">FLUKA can handle even very complex geometries, using an improved version of the well-known Combinatorial Geometry (CG) package. The FLUKA CG has been designed to track correctly also charged particles (even in the presence of magnetic or electric fields). Various visualisation and debugging tools are also available.</p>
+<p><br /><strong>Invoking in Neha Cluster</strong></p>
+<p>FLUKA 2011.2c.6 is available in Neha cluster in /home/appl/fluka2011.2c-installdir/</p>
+<p>A job script for submitting FLUKA jobs to Sun Grid Engine will be as follows:</p>
+<p>#$ -cwd<br />#$ -j y<br />#$ -S /bin/bash<br />#$ -v FLUPRO=/home/appl/fluka2011.2c-installdir/<br />#$ -v LD_LIBRARY_PATH=/home/appl/fluka2011.2c-installdir/gcc6.3.0/lib:/home/appl/fluka2011.2c-installdir/gcc6.3.0/lib64</p>
+<p>/home/appl/fluka2011.2c-installdir/flutil/rfluka example</p>
+<p>Here 'example.inp' is the name of Fluka input file</p>
+<p><br/><strong>Invoking in Ivy Cluster</p>
+<p>FLUKA 2020 is installed in Ivy in /apps/FLUKA2020. For running FLUKA, a user can add following lines to his .bashrc file</p><p><i>
+export FLUPRO=/apps/FLUKA2020/ <br/>
+export FLUFOR=g77<br/>
+
+</i></p>
+<p>A fluka job can be submitted to slurm using script:</p><p><i>
+#!/bin/bash<br/>
+#SBATCH --ntasks-per-node 1<br/>
+#SBATCH --error=job.%J.err<br/>
+#SBATCH --output=job.%J.out<br/>
+#SBATCH -p <queuename><br/>
+
+ /apps/FLUKA2020/flutil/rfluka example 
+<br/> Here 'example.inp' will be the name of the input file</i></p>
+  </td> <tr> </table>
+  </section>
+  </div>
+ 
+ 
+  <div id="div17" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p><strong>GNU Octave</strong></p>
+<p style="text-align: justify;">GNU Octave is a high-level language, primarily intended for numerical computations. 
+It is typically used for such problems as solving linear and nonlinear equations, numerical linear algebra, statistical analysis, 
+and for performing other numerical experiments. It may also be used as a batch-oriented language for automated data processing.
+ It provides a convenient command line interface for solving linear and nonlinear problems numerically, and for performing other numerical
+ experiments using a language that is mostly compatible with Matlab.</p>
+<p style="text-align: justify;">Octave has extensive tools for solving common numerical linear algebra problems, finding the 
+roots of nonlinear equations, integrating ordinary functions, manipulating polynomials, and integrating ordinary differential 
+and differential-algebraic equations. It is easily extensible and customizable via user-defined functions written 
+in Octave&rsquo;s own language, or using dynamically loaded modules written in C++, C, Fortran, or other languages.</p>
+<p ><strong>Invoking Octave in Ivy Cluster</strong></p>
+<p style="text-align: justify;">For a user to use Octave, the environment variables, PATH and LD_LIBRARY_PATH are set to point to the Octave installation path and location of external libraries. In the user&rsquo;s .bashrc file, following lines are to be added:</p>
+<p style="text-align: justify;">export LD_LIBRARY_PATH= /apps/Octave/deps/OpenBLAS/lib:/apps/Octave/deps/fftw/lib:/apps/Octave/deps/fftwf/lib:/apps/Octave/deps/qhull/lib:/apps/Octave/deps/qrupdate/lib:/apps/Octave/deps/SuiteSparse/lib:/apps/Octave/deps/hdf5/lib:/apps/Octave/deps/glpk/lib:/apps/Octave/deps/GraphicsMagick/lib:/apps/Octave/deps/arpack/lib/:/apps/Octave/lib:/apps/Octave/deps/fltk/lib:$LD_LIBRARY_PATH</p>
+<p style="text-align: justify;">export PATH=/apps/Octave/bin:$PATH</p>
+<p><br />Octave is started with the shell command &lsquo;octave&rsquo;. (Path to the executable is /app/Octave/bin/octave). This will open the Octave command line interface, where an initial message is displayed and a prompt which will accept Octave commands will appear.</p>
+  </td> <tr> </table>
+  </section>
+  </div>
+ <!--
+   <div id="div18" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p><strong>MCNP</strong></p>
+<p>MCNP is a general-purpose Monte Carlo N-Particle code that can be used for neutron, photon, electron, or coupled neutron/photon/electron transport. Specific areas of application include, but are not limited to, radiation protection and dosimetry, radiation shielding, radiography, medical physics, nuclear criticality safety, Detector Design and analysis, nuclear oil well logging, Accelerator target design, Fission and fusion reactor design, decontamination and decommissioning. The code treats an arbitrary three-dimensional configuration of materials in geometric cells bounded by first- and second-degree surfaces and fourth-degree elliptical tori.</p>
+<p>Pointwise cross-section data typically are used, although group-wise data also are available. For neutrons, all reactions given in a particular cross-section evaluation (such as ENDF/B-VI) are accounted for. Thermal neutrons are described by both the free gas and S(alpha,beta) models. For photons, the code accounts for incoherent and coherent scattering, the possibility of fluorescent emission after photoelectric absorption, absorbtion in pair production with local emission of annihilation radiation, and bremsstrahlung. A continuous-slowing-down model is used for electron transport that includes positrons, k x-rays, and bremsstrahlung but does not include external or self-induced fields.</p>
+<p><strong>Invoking in Neha Cluster</strong></p>
+<p>A job script for submitting MCNP jobs to Sun Grid Engine will be as follows:<br />#$ -cwd<br />#$ -j y<br />#$ -S /bin/bash<br />#$ -v PVM_DPATH=/home/appl/pvm3/bin/LINUX64<br />/home/appl/pvm3/bin/LINUX64/mcnp.pvm n=inp tasks 24x1<br />exit 0</p>
+<p><br />Here, n=inp denotes that name of the input file is 'inp'.<br />tasks 24*1 denotes that 24 processes will start<br />(the number of tasks should be a multiple of 12)</p>
+<p>Save the script as mcnp.sh. The script can be submitteb by the command</p>
+<ul style="padding-left:30px" >
+<li>qsub -q pvm.q -pe pvmPE 24 mcnp.sh<br />(24 again denotes the number of processes)</li>
+</ul>
+<p><strong>Invocation Procedure for MCNP in Ivy cluster</strong></p>
+<p>MCNP in Ivy cluster can be run on single node only, that is with 24 processes.The procedure to run mcnp is <br /> 1. Copy mcnp.pvm to your home directory <br/>cp /apps/pvm3/bin/LINUX64/mcnp.pvm . <br/>2. A sample mcnp submission script is available at  /apps/pvm3/mcnpscript/mcnpscript.sh <br/>Copy this file to your submission directory.<br/>3. Change variables  INP_FILES and OUT_FILES with your input and output file names in the lines <br/><i>INP_FILES="FFTF1b xsdir FFTF_ENDFBVI.8" <br/>OUT_FILES="FFTF1b*"</i> <br/>Line No:37, that is , <br/><i>$SLURM_SUBMIT_DIR/mcnp.pvm n=FFTF1b tasks -24x1</i> <br/>invokes MCNP program with 24 processes. change the input file name to your file instead of FFTF1b.<br/>4. Submit the script:<br/> sbatch mcnpscript.sh <br/></p>
+  </td> <tr> </table>
+  </section>
+  </div>
+ 
+ <div id="div19" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p><strong>VASP</strong></p>
+<p style="text-align: justify;">The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics, from first principles.</p>
+<p style="text-align: justify;">VASP computes an approximate solution to the many-body Schr&ouml;dinger equation, either within density functional theory (DFT), solving the Kohn-Sham equations, or within the Hartree-Fock (HF) approximation, solving the Roothaan equations. Hybrid functionals that mix the Hartree-Fock approach with density functional theory are implemented as well. Furthermore, Green's functions methods (GW quasiparticles, and ACFDT-RPA) and many-body perturbation theory (2nd-order M&oslash;ller-Plesset) are available in VASP.</p>
+ <p>A job script for submitting VASP jobs to SLURM will be as follows:<br />
+ <table width="90%" border="0" > <tr> <td style="color:blue;border:0">
+ <p>#!/bin/bash<br />#SBATCH -N 20<br />#SBATCH -n 480<br />#SBATCH -J vasp.5.3.3<br />#SBATCH --error=job.%J<br />#SBATCH -p queue1<br />#SBATCH --output=job.%J</p>
+<p>echo "using the following mpi `which mpirun` "<br />mpirun -np $SLURM_NPROCS /apps/vasp/vasp.5.4.1/bin/vasp_std &gt; vasp.out</p>
+</td> </tr> </table>
+ <p>Save the script as vasp.sh in the user's launch directory.</p>
+<p>The following input files should be available in the launch directory</p>
+<p>INCAR,KPOINTS,POSCAR, POTCAR&nbsp;</p>
+<p>The script can be submitted by the command</p>
+<p>sbatch -n &lt;number of processors&gt; -p &lt;queue name&gt; &lt;users launch directory&gt;/vasp.sh</p>
+  </td> <tr> </table>
+  </section>
+  </div> -->
+  <div id="div18" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p><strong>Open FOAM</strong></p>
+ <p> OpenFOAM (Open source Field Operation And Manipulation) is a free and open source toolbox which is used in academia and industry to solve continuum mechanics problems, including Computational Fluid Dynamics (CFD). CFD is a branch of fluid mechanics that uses numerical analysis and data structures to solve and analyse problems that involve fluid flow </p>
+<P>Features </p> 
+<ul style="padding-left:30px" ><li >No license cost</li>
+<li>Flexible: Code customisation according to the problem</li>
+<li>Fully MPI parallelised which supports High Performance Computing</li>
+<li>Huge Solver Database</li>
+<li>Imports Mesh from other CFD software</li>
+</ul> 
+
+<p>The latest version of OpenFOAM - OpenFOAM v1712, released in December 2017 is installed in IVY Cluster. This is equivalent to OpenFOAM 5.0. You can start using the same by configuring the environment variables for OpenFOAM with the following&nbsp;procedure:</p>
+
+<p>1. Login to the head node of IVY Cluster (IP Address: 10.1.2.3)</p>
+
+<p>2. In your home folder, open the &#39;.bashrc&#39; file with text editor as:</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>vi .bashrc</strong>&nbsp;</p>
+
+<p>3. Add the following lines to the end of .bashrc file:</p>
+
+<p>&nbsp; &nbsp; &nbsp;&nbsp;<strong>PATH=/apps/gcc-6.4.0/bin:/apps/openmpi-1.10.4/bin:$PATH</strong></p>
+
+<p>&nbsp; &nbsp; &nbsp;&nbsp;<strong>export PATH</strong></p>
+
+<p>&nbsp; &nbsp; &nbsp;&nbsp;<strong>LD_LIBRARY_PATH=/apps/gcc-6.4.0/lib:/apps/gcc-6.4.0/lib64:/apps/openmpi-1.10.4/lib64:$LD_LIBRARY_PATH</strong></p>
+
+<p>&nbsp;&nbsp; &nbsp;&nbsp;<strong>export LD_LIBRARY_PATH</strong></p>
+
+<p>&nbsp; &nbsp;&nbsp;<strong>source /apps/OpenFOAM/OpenFOAM-v1712/etc/bashrc</strong></p>
+
+<p>4. Save the file and exit form the editor.</p>
+
+<p>5. Execute the following command:</p>
+
+  </td> <tr> </table>
+  </section>
+  </div>
+ 
+ <div id="div19" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p><strong>VASP</strong></p>
+<p style="text-align: justify;">The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics, from first principles.</p>
+<p style="text-align: justify;">VASP computes an approximate solution to the many-body Schr&ouml;dinger equation, either within density functional theory (DFT), solving the Kohn-Sham equations, or within the Hartree-Fock (HF) approximation, solving the Roothaan equations. Hybrid functionals that mix the Hartree-Fock approach with density functional theory are implemented as well. Furthermore, Green's functions methods (GW quasiparticles, and ACFDT-RPA) and many-body perturbation theory (2nd-order M&oslash;ller-Plesset) are available in VASP.</p>
+ <p>A job script for submitting VASP jobs to SLURM will be as follows:<br />
+ <table width="90%" border="0" > <tr> <td style="color:blue;border:0">
+ <p>#!/bin/bash<br />#SBATCH -N 20<br />#SBATCH -n 480<br />#SBATCH -J vasp.5.3.3<br />#SBATCH --error=job.%J<br />#SBATCH -p queue1<br />#SBATCH --output=job.%J</p>
+<p>echo "using the following mpi `which mpirun` "<br />mpirun -np $SLURM_NPROCS /apps/vasp/vasp.5.4.1/bin/vasp_std &gt; vasp.out</p>
+</td> </tr> </table>
+ <p>Save the script as vasp.sh in the user's launch directory.</p>
+<p>The following input files should be available in the launch directory</p>
+<p>INCAR,KPOINTS,POSCAR, POTCAR&nbsp;</p>
+<p>The script can be submitted by the command</p>
+<p>sbatch -n &lt;number of processors&gt; -p &lt;queue name&gt; &lt;users launch directory&gt;/vasp.sh</p>
+  </td> <tr> </table>
+  </section>
+  </div>
+  
+  
+ <div id="div20" style= "display:none">
+<section>
+ <table width="90%" border="1" align="center"> <tr> <td padding="2">
+ <h1></h1>
+ <p><strong>DAMASK</strong></p>
+<p style="text-align: justify;">For using DAMASK, a user should execute the script /apps/damask-2.0.3/env/DAMASK.sh for setting DAMASK environment variables. The command and output will be as follows:<hr>
+source /apps/damask-2.0.3/env/DAMASK.sh
+<br/><hr>
+<br/>
+Düsseldorf Advanced Materials Simulation Kit --- DAMASK <br/>
+Max-Planck-Institut für Eisenforschung GmbH, Düsseldorf <br/>
+https://damask.mpie.de
+Using environment with ...<br/>
+DAMASK
+/apps/damask-2.0.3 <br/>
+Spectral Solver /apps/damask-2.0.3/bin/DAMASK_spectral <br/>
+Post Processing /apps/damask-2.0.3/bin/postResults <br/>
+
+Multithreading
+DAMASK_NUM_THREADS=24 <br/>
+heap size unlimited <br/>
+stack size unlimited  <br/>
+<hr>
+<br/></p>
+<p>To submit DAMASK job, make a  sample script (slurm-damask.sh) is as follows: <br/> <hr>
+#!/bin/bash <br/>
+#SBATCH --ntasks-per-node 24 <br/>
+#SBATCH --error=job.%J.err <br/>
+#SBATCH --output=job.%J.out <br/>
+#SBATCH -p all.q <br/>
+source /apps/intel/compilers_and_libraries_2016.1.150/linux/bin/compilervars.sh intel64 <br/>
+source /apps/intel/compilers_and_libraries_2016.1.150/linux/mkl/bin/mklvars.sh intel64 <br/>
+source /apps/intel/compilers_and_libraries_2016.1.150/linux/mpi/intel64/bin/mpivars.sh <br/>
+export PETSC_DIR=/apps/petsc-3 <br/>
+export PETSC_ARCH=linux-intel <br/>
+source /apps/damask-2.0.3/env/DAMASK.sh <br/>
+export JOBNAME="${SLURM_JOB_NAME}" <br/>
+export JOBID="${SLURM_JOBID}" <br/>
+# Copy the working dir from Slurm and switch to that directory <br/>
+export WORKDIR="${SLURM_SUBMIT_DIR}" <br/>
+cd "${WORKDIR}" <br/>
+INP_FILES="*.config *.geom *.load" <br/>
+#Change the above line according to your input  make a scratch dir in the local disk space under /tmp # make job specific sub directory <br/>
+JOB_DIR="$SLURM_JOBID"_damask  <br/>
+SCRATCH_DIR=/tmp/$JOB_DIR <br/>
+mkdir ${SCRATCH_DIR} <br/>
+cp $INP_FILES ${SCRATCH_DIR} <br/>
+cd $SCRATCH_DIR <br/>
+echo $SCRATCH_DIR <br/>
+DAMASK_spectral -l tensionX.load -g test.geom <br/>
+#Change the above line according to your input <br/>
+mv ${SCRATCH_DIR} ${WORKDIR} <br/>
+rm -rf /tmp/$JOB_DIR <br/> <br/><hr>
+
+In the script, the lines,INP_FILES=="*.config *.geom *.load" and DAMASK_spectral -l tensionX.load -g test.geom are to be modified by specifying the input files of DAMASK. Once the script is ready, it has to be submitted using the command: <br/><br/>
+sbatch –n 1 slurm-damask.sh </p>
+  </section>
+  </div>
+  
+
+<script>
+
+function abaqus() {
+//var x = divid;
+
+var x;
+for (x=1;x<=20;x++){
+
+if (x==1){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+function ansys() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==2){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+function cfdace() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==3){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+function cfdexpert() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==4){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+function comsol() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==5){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+function feff() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==6){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+
+function hypermesh() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==7){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+
+function lsdyna() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==8){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+function math() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==9){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+function phoenics() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==10){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+
+function star() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==11){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+function sysweld() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==12){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+
+function thermocalc() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==13){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+function vnlatk() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==14){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+
+function wien2k() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==15){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+function fluka() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==16){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+function octave() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==17){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+function damask() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==20){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+/*function mcnp() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==18){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}*/
+
+function openfoam() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==18){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+function vasp() {
+var x;
+for (x=1;x<=20;x++){
+
+if (x==19){
+document.getElementById("div"+x).style.display="block";
+}
+else{
+document.getElementById("div"+x).style.display="none";
+}
+}
+}
+
+</script>
+
+
+</body>
+</html>

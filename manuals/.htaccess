@@ -1,0 +1,5 @@
+Options -Indexes
+<Files ~ ".*\.(pdf|exe|gz|zip|html|ppt|doc|docx|pptx)">
+	Require All Denied
+	Require ip 127.0.0.1    
+</Files>

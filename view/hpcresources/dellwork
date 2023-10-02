@@ -1,0 +1,54 @@
+<style>
+ul{list-style-position:inside;}
+</style>
+
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong> High End Workstations</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Workstation Configuration </strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+<ul>
+<li>Processor : 2 Nos Intel Xeon Gold 6136 3.0 GHz ,3.7 GHz Turbo, 12C, 10.4GT/s</li>
+<li>Memory : 128 GB 2666 MHz DDR4 RDIMM ECC </li>
+<li>Storage : 1 No. 512GB PCIe NVMe Class 40 Solid State Drive (SSD) for OS & 6 Nos x 2.5"  1.2 TB 10K SAS 12Gbps  Hard Disk Drive (HDD) </li>
+<li>Video/Graphics Card : NVIDIA Quadro P5000 16GB supporting 4k Display </li>
+<li>Chipset : Intel C621</li>
+<li>Motherboard : Dell</li>
+<li> Operating System  Windows 10 Professional for workstations 64bit</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Application softwares</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li> ABAQUS  &emsp; Finite Element Analysis Software</li>
+<li> ANSYS   &emsp; Engineering simulation software</li>
+<li> CFD-ACE &emsp;    Computational Fluid Dynamics solver </li>
+<li> COMSOL  &emsp;   Multiphysics Simulation Software </li>
+<li> jMATPRO &emsp;  Simulation software for material properties</li>
+<li> SYSWELD &emsp;   Welding and Heat Treatment Simulation Software</li>
+<li> THERMOCALC &emsp; Computatinal Thermo Dynamics Software</li>
+
+</ul>
+</td>
+</tr>
+
+</tbody>
+</table>
+</td>
+          </tr>
+        </table>

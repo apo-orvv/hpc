@@ -1,0 +1,6 @@
+<h1> IGCAR HPC RESOURCES<h1>
+<p>
+<a href="index.php?hpcpage=systemdetails&systemname=Ivy">IVY CLuster </a><br/><br/>
+<a href="index.php?hpcpage=systemdetails&systemname=Neha">Neha CLuster </a><br/><br/>
+<a href="index.php?hpcpage=systemdetails&systemname=Licenses">Software Licenses</a><br/><br/>
+</p>

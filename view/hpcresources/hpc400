@@ -1,0 +1,77 @@
+
+<style>
+ul{list-style-position:inside;}
+</style> 
+
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong>400 Node HPC Cluster</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Master Node (2 Nos with High Availability),Compute Nodes (400 Nos), 1 PHI node & 1 GPU Node</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+<ul>
+<li>Processor&nbsp;- 12&nbsp;Core 64 bit Intel Xeon @ 2.7 Ghz and 128 GB RAM Intel IVY Bridge Microarchitecture</li>
+<li>Cluster&nbsp;- 400 node, 9600 Processor Cores and 128GB of Memory</li>
+<li>Performance&nbsp;- system performance of 200 TFLOPS. SMP Linpack of each node is 460 GFLOPS</li>
+<li>Interconnects&nbsp;- Infiniband 1FDR 56 Gbps networks and connect X three controller with QSFP Infiniband networks</li>
+<li>Storage&nbsp;- 500 Tera Byte Unified Storage using Lustre file system</li>
+<li>Backup&nbsp;- Automated Tape Library with 8 LTO-6 drives and 77 media slots</li>
+<li>Operating System&nbsp;- Red Hat Enterprise Linux 6.x</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Compilers, Libraries and Development Tools</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Intel &nbsp;C/C++ and Fortran Compilers</li>
+<li>GNU &nbsp;C, C++ and Fortran-77 Compilers</li>
+<li>Intel idb, GNU gdb</li>
+<li>Intel Trace Collector and Trace Analyzer</li>
+<li>Intel Debugger</li>
+<li>Intel Math Kernel Library&nbsp;</li>
+<li>MPICH, MVAPICH, OpenMPI, Intel MPI and PVM Parallel APIs</li>
+<li>Engineering libraries: ATLAS, BLOCKSOLVE, F2CBLASLAPACK, FFTW, LAPACK, SCALAPACK, BLACS, CBLAS, FBLASLAPACK, NETCDF, SUPERLU, BLAS, HDFPETSC</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Application Softwares</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>ABAQUS<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Non-linear Finite Element Analysis Software</em></strong></li>
+<li>VASP<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Quantum-mechanical Molecular Dynamics Software</em></strong></li>
+<li>IGCSolve<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em> Computational Fluid Dynamics Software</em></strong></li>
+<li>CFD- EXPERT<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;<em>Computational Fluid Dynamics Software</em></strong></li>
+<li>WIEN2K<strong>&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;<em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Molecular Dynamics/DFT codes</em></strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+          </tr>    
+        </table>
+
+
+
+
+
+
+

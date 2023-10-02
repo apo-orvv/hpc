@@ -1,0 +1,18 @@
+    
+<section>
+ <h1>LS-DYNA</h1>
+ <p>LS-DYNA is a general-purpose finite element program capable of simulating complex real world problems. It is used by the automobile, aerospace, construction, military, manufacturing, and bioengineering industries.</p> 
+ <h2>Applications</h2>
+ <ul>
+<li>Automotive Crashworthiness & Occupant Safety</li>
+ <li>Metal Forming</li>
+ <li>Aerospace</li>
+ <li>Multiphysics</li>
+ <ol>
+<li>Incompressible CFD</li>
+ <li>Electromagnetics</li>
+ <li>CESE/ Compressible CFD and Chemistry</li>
+   </ol>
+  </ul>
+  </section>
+

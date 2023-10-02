@@ -1,0 +1,102 @@
+<style>
+ul{list-style-position:inside;}
+</style>
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong>BULL HPC CLUSTER System</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Bull NovaScale 4020 Management Node</strong><strong>&nbsp;</strong><strong>(1 No)</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+<ul>
+<li>Dual Itanium 2 @1.6 GHz Processors&nbsp;- &nbsp;</li>
+<li>4 GB RAM, 1.2 TB HDD&nbsp;- </li>
+<li>10 GFLOPS&nbsp;- </li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Bull NovaScale 4020 Compute Nodes(16 Nos)</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Dual Itanium 2 &nbsp;@1.6GHz Processors</li>
+<li>4 GB RAM &nbsp;146 GB HDD</li>
+<li>Gigabit Interconnect</li>
+<li>150 GFLOPS(32-Processors)</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Operating Systems</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Bull Advanced Server 4 Linux Operating System with HPC Cluster suite</li>
+</ul></td>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Compilers, Libraries and Development Tools</strong></p>
+</td>
+</tr>
+
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Intel C/C++ and Fortran COmpilers</li>
+<li>GNU  C, C++ and Fortran-77 Compilers</li>
+<li>Java BEA Weblogic JRockit VM</li>
+<li>Intel idb, GNU gdb, dmalloc, ElectricFence Debuggers</li>
+<li>Intel Trace Collector and Trace Analyzer</li>
+<li>PAPI, pfmon, cprof and gprof profilers</li>
+<li>Intel Cluster Math Kernel Library  </li>
+<li>OSS libraries: FFTW, Blacs, Scalapack, PETSc, Netcdf, BlockSolve95, and SuperLU</li>
+<li>MPICH, LAM, Bull MPI and PVM Parallel APIs</li>
+</ul>
+<tr>
+<td valign="left"  bgcolor="#D3D3D3">
+<p><strong>Application Softwares</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>LS-DYNA(ver 970; 8-cpu parallel)<strong>&nbsp;</strong><strong>&nbsp;&nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Adv. non-linear Finite Element Analysis Software</em></strong></li>
+<li>STAR-CD(ver 3.26; 4-cpu parallel)<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Computational Fluid Dynamics Software</em></strong></li>
+<li>MATHEMATICA (ver 5.2)<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Technical Computing Software for Math applications</em></strong></li>
+
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Peripherals</strong></p>
+</td>
+</tr>
+
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li><b>LIPI T6100 </b>Line Impact Dot-matrix Printer(1000 lpm)</li>
+<li><b>HP LaserJet 5100 </b>Printer (A3 Paper Size) </li>
+
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+          </tr>    
+        </table>
+
+

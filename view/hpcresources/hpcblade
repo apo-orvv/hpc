@@ -1,0 +1,34 @@
+
+<style>
+ul{list-style-position:inside;}
+</style>
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong>Blade CLuster(2 Nos)</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Master Node</strong><strong>&nbsp;</strong><strong>(Rack Server), 8 Server Blades</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+<ul>
+<li><b>Processor</b>&nbsp;- Dual Quad Core&nbsp;Core 64 bit Intel Xeon X5675 @ 3.06 Ghz</li>
+<li><b>Memory</b>&nbsp;- 48 GB ECC RAM</li>
+<li><b>Harddisk</b>&nbsp;- 2 x 500GB SAS</li>
+<li><b>Interconnects</b>&nbsp;- Infiniband QDR 4x40 Gbps network (8 ext.ports) Gigabit Ethernet management/admin networks</li>
+<li><b>Storage</b>&nbsp;- 8x 600 GB SAS on Master Node</li>
+<li><b>OS</b>&nbsp;- Red Hat Enterprise Linux 5.8 with ROCKS HPC Suite</li>
+<li><b>Performance</b>&nbsp;- 1.08 TFLOPS(HPL)
+</ul>
+</td>
+</tr>
+
+        </table>
+
+
+

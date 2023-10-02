@@ -1,0 +1,76 @@
+<tr border='1'>
+ <td border='1'>  
+<style>
+ul{list-style-position:inside;}
+</style>
+
+
+    
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong>Xeon SMP System(3 Nos)</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+<ul>
+<li><b>Processor</b>&nbsp;- 4-socket 6-core Intel Xeon X7460 2.66 GHz 64GB ECC RAM</li>
+<li><b>Performance</b>&nbsp;- system performance of 152 GFLOPS</li>
+<li><b>Storage</b>&nbsp;- NAS, 12TB</li>
+<li><b>Backup</b>&nbsp;- LTO-4 Tape drive</li>
+<li><b>Operating System</b>&nbsp;- Red Hat Enterprise Linux 5.x</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Compilers, Libraries and Development Tools</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>Intel &nbsp;C/C++ and Fortran Compilers</li>
+<li>GNU &nbsp;C, C++ and Fortran-77 Compilers</li>
+<li>Intel idb, GNU gdb</li>
+<li>Intel Math Kernel Library&nbsp;</li>
+<li>OSS libraries: FFTW, Blacs, Scalapack, PETSc, Netcdf,Blocksolve95, and SuperLU</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#D3D3D3">
+<p><strong>Application Softwares</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li>THERMOCALC<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Computatinal Thermo Dynamics Software</em></strong></li>
+<li>SYSWELD<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>Welding and Heat Treatment Simulation Software</em></strong></li>
+<li>MATHEMATICA<strong>&nbsp;</strong><strong>&nbsp; &nbsp;</strong><strong>&nbsp;<em>Technical Computing Software for Math applications</em></strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+          </tr>    
+        </table>
+
+
+
+
+
+
+
+</td> </tr> </table>
+
+</body>
+</html>

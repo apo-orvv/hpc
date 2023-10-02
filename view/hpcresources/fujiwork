@@ -1,0 +1,63 @@
+<style>
+ul{list-style-position:inside;}
+</style>
+
+
+<table style="width: 100%;" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" >
+<tbody>
+<tr>
+<td valign="top" align="center" bgcolor="#B0C4DE" height="30">
+<p><strong> Fujitsu High End Workstations</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Workstation Configuration </strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#E6E6FA">
+<ul>
+<li> Processor Intel Xeon X5687 (3.60 GHz, 2 x 6 MB , 1333 MHz )</li>
+
+<li> Memory modules 48 GB (2 module(s) with 8 GB) DDR2, fully buffered, ECC, 667 MHz, DIMM</li>
+
+<li> Graphics Card: CELSIUS RemoteAccess Card, PCIe x1, 2x DVI-I</li>
+
+<li> Hard disk drives (internal) SATA II, 10000 rpm, 420 GB, 2.5-inch, S.M.A.R.T.</li>
+
+<li>Chipset Intel 5400, Intel 6321ESB I/O Controller Hub</li>
+
+<li>Memory slots 8 FullyBuffered DIMM Supported capacity RAM (max.) 64 GB</li>
+
+<li>Operating system Microsoft Windows 7 Business 64bit </li>
+
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" bgcolor="#D3D3D3">
+<p><strong>Application softwares</strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top"  bgcolor="#E6E6FA" >
+<ul>
+<li> THERMOCALC    Computatinal Thermo Dynamics Software</li>
+
+<li> SYSWELD     Welding and Heat Treatment Simulation Software</li>
+<li> ABAQUS   Finite Element Analysis Software</li>
+
+<li> COMSOL   Multiphysics and Finite Element Analysis Software</li>
+
+<li> CATIA   Computer Aided Three-dimensional Interactive Application </li>
+
+</ul>
+</td>
+</tr>
+
+</tbody>
+</table>
+</td>
+          </tr>
+        </table>
