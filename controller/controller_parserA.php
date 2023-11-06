@@ -32,19 +32,11 @@ class LogController
                         $csvContent = $this->generateCSVContent($processedData);
                         file_put_contents($csvFilename, $csvContent);
 
-                        $featureDurations = $this->model->calculateFeatureDurations();
-                        $featureDurationsByDay = $this->model->calculateFeatureDurationsByDay();
-                        $denial = $this->model->denial();
-                        $denialcount = $this->model->denialcount();
-                        $lic = $this->model->lic();
-                        
                         $successCount++;
                     }
                 }
                 
-                // Display a summary message for the total number of uploaded files
                 if ($successCount > 0) {
-                    // Display success message for each uploaded file
                     $this->view->success();
                     echo '<center><p>' . $successCount . ' file(s) successfully processed and saved.</p></center>';
                 }

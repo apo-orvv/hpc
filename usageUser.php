@@ -54,7 +54,31 @@ mysqli_close($connection);
 // Convert data to JSON
 $dataJson = json_encode($data);
 ?>
+<style>
+    /* Apply styles to the container */
+/* .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
+/* Style the page title */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Style the chart and table divs */
+#chart_div, #table_div {
+    margin-top: 20px;
+} */
+
+</style>
     <title>User Feature Usage Duration</title>
     <link type="text/css" href="view/menu.css" rel="stylesheet" />
 <link type="text/css" href="view/style.css" rel="stylesheet" />
@@ -92,6 +116,6 @@ $dataJson = json_encode($data);
     <div class="container">
         <h1>User Feature Usage Duration</h1>
         <div id="chart_div" style="width: 100%; height: 400px;"></div>
-        <div id="table_div"></div>
+        <center><div id="table_div"></div></center>
     </div>
 

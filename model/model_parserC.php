@@ -5,7 +5,6 @@ class LogModel
 
     public function __construct()
     {
-        // Update these parameters with your actual database credentials
         $dsn = 'mysql:host=localhost;dbname=test;charset=utf8';
         $username = 'root';
         $password = '';
@@ -23,7 +22,8 @@ class LogModel
               `Software` varchar(255) DEFAULT NULL,
               `Status` varchar(255) DEFAULT NULL,
               `Feature` varchar(255) DEFAULT NULL,
-              `UserMachine` varchar(255) DEFAULT NULL
+              `UserMachine` varchar(255) DEFAULT NULL,
+              `Licenses` int DEFAULT NULL
             )
         ";
         $this->pdo->exec($sql);
@@ -39,7 +39,8 @@ class LogModel
               `Software` varchar(255) DEFAULT NULL,
               `Status` varchar(255) DEFAULT NULL,
               `Feature` varchar(255) DEFAULT NULL,
-              `UserMachine` varchar(255) DEFAULT NULL
+              `UserMachine` varchar(255) DEFAULT NULL,
+              `Licenses` int DEFAULT NULL
             )
         ";
         $this->pdo->exec($sql);
@@ -51,9 +52,9 @@ class LogModel
         $currentDate = null;
 
         $lines = explode("\r\n", $logContent);
-        if($fileMode==="append"){
+        if ($fileMode === "append") {
             $this->createTable();
-        } elseif($fileMode==="overwrite"){
+        } elseif ($fileMode === "overwrite") {
             $this->createTabledrop();
         }
         foreach ($lines as $line) {
@@ -63,7 +64,7 @@ class LogModel
                 $status = $matches[3];
                 $feature = $matches[4];
                 $userMachine = $matches[5];
-
+                $licensesCount = 1;
                 $timestamp = DateTime::createFromFormat('H:i:s', $timestampStr);
 
                 if ($currentDate !== null) {
@@ -73,7 +74,8 @@ class LogModel
                         "Software" => $software,
                         "Status" => $status,
                         "Feature" => $feature,
-                        "User Machine" => $userMachine
+                        "User Machine" => $userMachine,
+                        "Licenses" => $licensesCount
                     ];
                 }
             } elseif (strpos($line, "TIMESTAMP") !== false) {
@@ -83,19 +85,18 @@ class LogModel
             }
 
             if ($currentDate !== null) {
-                // Insert data into the database
-                $this->insertDataToDatabase($currentDate, $timestamp->format('H:i:s'), $software, $status, $feature, $userMachine);
+                $this->insertDataToDatabase($currentDate, $timestamp->format('H:i:s'), $software, $status, $feature, $userMachine, $licensesCount);
             }
         }
 
         return $data;
     }
 
-    private function insertDataToDatabase($date, $time, $software, $status, $feature, $userMachine)
+    private function insertDataToDatabase($date, $time, $software, $status, $feature, $userMachine, $licenses)
     {
-        $sql = "INSERT IGNORE INTO licenselogC (Date, Time, Software, Status, Feature, UserMachine) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT IGNORE INTO licenselogC (Date, Time, Software, Status, Feature, UserMachine, Licenses) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$date, $time, $software, $status, $feature, $userMachine]);
+        $stmt->execute([$date, $time, $software, $status, $feature, $userMachine, $licenses]);
     }
 
     public function dates()
@@ -131,7 +132,8 @@ class LogModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function calculateFeatureDurationschoice($startDate, $endDate){
+    public function calculateFeatureDurationschoice($startDate, $endDate)
+    {
         $sql = "
             SELECT Feature, SEC_TO_TIME(ABS(SUM(TIME_TO_SEC(TIMEDIFF(IN_TIME, OUT_TIME))))) AS Duration
             FROM (
@@ -196,7 +198,7 @@ class LogModel
 
         $featureDurationsByDay = [];
 
-        // Fill in the missing entries with NULL values
+        // Filling of missing entries with NULL values
         foreach ($data as $row) {
             $feature = $row['Feature'];
             $date = $row['Date'];
@@ -213,8 +215,6 @@ class LogModel
             $featureDurationsByDay[$feature]['Dates'][] = $date;
             $featureDurationsByDay[$feature]['Durations'][] = $duration;
         }
-
-        // Fill in missing dates with NULL values
         foreach ($featureDurationsByDay as &$featureData) {
             foreach ($dateRange as $date) {
                 if (!in_array($date, $featureData['Dates'])) {
@@ -228,7 +228,6 @@ class LogModel
                     $duration = "00:00:00";
                 }
             }
-            // Sort the data by date
             array_multisort($featureData['Dates'], $featureData['Durations']);
         }
 
@@ -258,7 +257,7 @@ class LogModel
         $stmt->execute([$startDate, $endDate]);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Create a list of dates within the range
+        // list of dates within the range
         $dateRange = [];
         $currentDate = new DateTime($startDate);
         $endDateObj = new DateTime($endDate);
@@ -268,10 +267,9 @@ class LogModel
             $currentDate->modify('+1 day');
         }
 
-        // Initialize the result array
         $featureDurationsByDay = [];
 
-        // Fill in the missing entries with NULL values
+        // Filling of missing entries with NULL values
         foreach ($data as $row) {
             $feature = $row['Feature'];
             $date = $row['Date'];
@@ -288,8 +286,6 @@ class LogModel
             $featureDurationsByDay[$feature]['Dates'][] = $date;
             $featureDurationsByDay[$feature]['Durations'][] = $duration;
         }
-
-        // Fill in missing dates with NULL values
         foreach ($featureDurationsByDay as &$featureData) {
             foreach ($dateRange as $date) {
                 if (!in_array($date, $featureData['Dates'])) {
@@ -303,11 +299,204 @@ class LogModel
                     $duration = "00:00:00";
                 }
             }
-            // Sort the data by date
             array_multisort($featureData['Dates'], $featureData['Durations']);
         }
 
         return array_values($featureDurationsByDay);
+    }
+
+    public function calculateUserMachineDurations()
+    {
+        $sql = "SELECT DISTINCT * FROM(
+            SELECT UserMachine, SEC_TO_TIME(SUM(TIME_TO_SEC(ABS(TIMEDIFF(IN_TIME, OUT_TIME))))) AS Duration
+            FROM (
+                SELECT 
+                    UserMachine, 
+                    MAX(CASE WHEN Status = 'IN' THEN Time END) AS IN_TIME,
+                    MIN(CASE WHEN Status = 'OUT' THEN Time END) AS OUT_TIME
+                FROM licenselogC
+                GROUP BY UserMachine, Date
+            ) AS UserMachineStatus
+            GROUP BY UserMachine) AS T  
+            ORDER BY `T`.`Duration` DESC LIMIT 5;
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function calculateUserMachineDurationschoice($startDate, $endDate)
+    {
+        $sql = "SELECT DISTINCT * FROM(
+            SELECT UserMachine, SEC_TO_TIME(ABS(SUM(TIME_TO_SEC(TIMEDIFF(IN_TIME, OUT_TIME))))) AS Duration
+            FROM (
+                SELECT 
+                    UserMachine, 
+                    MAX(CASE WHEN Status = 'IN' THEN Time END) AS IN_TIME,
+                    MIN(CASE WHEN Status = 'OUT' THEN Time END) AS OUT_TIME
+                FROM licenselogC
+                WHERE Date >= ? AND Date <= ?
+                GROUP BY UserMachine, Date
+            ) AS UserMachineStatus
+            GROUP BY UserMachine) AS T
+            ORDER BY `T`.`Duration` DESC LIMIT 5;
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function calculateUserMachineDurationsByDay()
+    {
+        $minDateQuery = "SELECT MIN(Date) FROM licenselogC";
+        $maxDateQuery = "SELECT MAX(Date) FROM licenselogC";
+        $minDateStmt = $this->pdo->query($minDateQuery);
+        $maxDateStmt = $this->pdo->query($maxDateQuery);
+        $minDate = $minDateStmt->fetchColumn();
+        $maxDate = $maxDateStmt->fetchColumn();
+
+        $sql = "SELECT DISTINCT * FROM (
+            SELECT
+            UserMachine,
+            Date,
+            SEC_TO_TIME(SUM(TIME_TO_SEC(ABS(TIMEDIFF(IN_TIME, OUT_TIME))))) AS Duration
+            FROM (
+                SELECT
+                    UserMachine,
+                    Date,
+                    MAX(CASE WHEN Status = 'IN' THEN Time END) AS IN_TIME,
+                    MIN(CASE WHEN Status = 'OUT' THEN Time END) AS OUT_TIME
+                FROM licenselogC
+                WHERE Date >= :minDate AND Date <= :maxDate
+                GROUP BY UserMachine, Date
+            ) AS UserMachineStatus
+            GROUP BY UserMachine, Date) AS T;
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(":minDate", $minDate);
+        $stmt->bindParam(":maxDate", $maxDate);
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // list of dates within the range
+        $dateRange = [];
+        $currentDate = new DateTime($minDate);
+        $endDateObj = new DateTime($maxDate);
+
+        while ($currentDate <= $endDateObj) {
+            $dateRange[] = $currentDate->format('Y-m-d');
+            $currentDate->modify('+1 day');
+        }
+
+        $UserMachineDurationsByDay = [];
+
+        // Filling missing entries with NULL values
+        foreach ($data as $row) {
+            $UserMachine = $row['UserMachine'];
+            $date = $row['Date'];
+            $duration = $row['Duration'];
+
+            if (!isset($UserMachineDurationsByDay[$UserMachine])) {
+                $UserMachineDurationsByDay[$UserMachine] = [
+                    'UserMachine' => $UserMachine,
+                    'Dates' => [],
+                    'Durations' => []
+                ];
+            }
+
+            $UserMachineDurationsByDay[$UserMachine]['Dates'][] = $date;
+            $UserMachineDurationsByDay[$UserMachine]['Durations'][] = $duration;
+        }
+        foreach ($UserMachineDurationsByDay as &$UserMachineData) {
+            foreach ($dateRange as $date) {
+                if (!in_array($date, $UserMachineData['Dates'])) {
+                    $UserMachineData['Dates'][] = $date;
+                    $UserMachineData['Durations'][] = null; // NULL value for missing date
+                }
+            }
+            // Replace NULL durations with "00:00:00"
+            foreach ($UserMachineData['Durations'] as &$duration) {
+                if ($duration === null) {
+                    $duration = "00:00:00";
+                }
+            }
+            array_multisort($UserMachineData['Dates'], $UserMachineData['Durations']);
+        }
+
+        return array_values($UserMachineDurationsByDay);
+    }
+
+    public function calculateUserMachineDurationsByDaychoice($startDate, $endDate)
+    {
+        $sql = "SELECT DISTINCT * FROM(
+            SELECT
+            UserMachine,
+            Date,
+            SEC_TO_TIME(ABS(SUM(TIME_TO_SEC(TIMEDIFF(IN_TIME, OUT_TIME))))) AS Duration
+            FROM (
+                SELECT
+                    UserMachine,
+                    Date,
+                    MAX(CASE WHEN Status = 'IN' THEN Time END) AS IN_TIME,
+                    MIN(CASE WHEN Status = 'OUT' THEN Time END) AS OUT_TIME
+                FROM licenselogC
+                WHERE Date >= ? AND Date <= ?
+                GROUP BY UserMachine, Date
+            ) AS UserMachineStatus
+            GROUP BY UserMachine, Date) AS T;
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // list of dates within the range
+        $dateRange = [];
+        $currentDate = new DateTime($startDate);
+        $endDateObj = new DateTime($endDate);
+
+        while ($currentDate <= $endDateObj) {
+            $dateRange[] = $currentDate->format('Y-m-d');
+            $currentDate->modify('+1 day');
+        }
+
+        $UserMachineDurationsByDay = [];
+
+        // Filling missing entries with NULL values
+        foreach ($data as $row) {
+            $UserMachine = $row['UserMachine'];
+            $date = $row['Date'];
+            $duration = $row['Duration'];
+
+            if (!isset($UserMachineDurationsByDay[$UserMachine])) {
+                $UserMachineDurationsByDay[$UserMachine] = [
+                    'UserMachine' => $UserMachine,
+                    'Dates' => [],
+                    'Durations' => []
+                ];
+            }
+
+            $UserMachineDurationsByDay[$UserMachine]['Dates'][] = $date;
+            $UserMachineDurationsByDay[$UserMachine]['Durations'][] = $duration;
+        }
+        foreach ($UserMachineDurationsByDay as &$UserMachineData) {
+            foreach ($dateRange as $date) {
+                if (!in_array($date, $UserMachineData['Dates'])) {
+                    $UserMachineData['Dates'][] = $date;
+                    $UserMachineData['Durations'][] = null; // NULL value for missing date
+                }
+            }
+            // Replace NULL durations with "00:00:00"
+            foreach ($UserMachineData['Durations'] as &$duration) {
+                if ($duration === null) {
+                    $duration = "00:00:00";
+                }
+            }
+            array_multisort($UserMachineData['Dates'], $UserMachineData['Durations']);
+        }
+
+        return array_values($UserMachineDurationsByDay);
     }
 
     public function denial()
@@ -328,7 +517,7 @@ class LogModel
 
     public function denialcount()
     {
-        $sql = "SELECT DISTINCT COUNT(Status), Date FROM (SELECT DISTINCT * FROM licenselogC WHERE Status = 'DENIED') AS T GROUP BY Date;";
+        $sql = "SELECT DISTINCT COUNT(Status), Date FROM (SELECT DISTINCT * FROM licenselogC WHERE Status = 'DENIED' AND Feature='COMSOL') AS T GROUP BY Date;";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -336,23 +525,108 @@ class LogModel
 
     public function denialcountchoice($startDate, $endDate)
     {
-        $sql = "SELECT DISTINCT COUNT(Status), Date FROM (SELECT DISTINCT * FROM licenselogC WHERE Status = 'DENIED' AND Date >= ? AND Date <= ?) AS T GROUP BY Date; ";
+        $sql = "SELECT DISTINCT COUNT(Status), Date FROM (SELECT DISTINCT * FROM licenselogC WHERE Status = 'DENIED' AND Feature='COMSOL' AND Date >= ? AND Date <= ?) AS T GROUP BY Date; ";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$startDate, $endDate]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function lic()
+    public function ftlic()
     {
         $sql = "SELECT Date, Feature, COUNT(Feature) AS COUNTLIC FROM (SELECT DISTINCT * FROM licenselogC) AS T WHERE Status='OUT' GROUP BY Date,Feature; ";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    public function licchoice($startDate, $endDate)
+
+    public function ftlicchoice($startDate, $endDate)
     {
         $sql = "SELECT Date, Feature, COUNT(Feature) AS COUNTLIC FROM (SELECT DISTINCT * FROM licenselogC WHERE Date >= ? AND Date <= ?) AS T WHERE Status='OUT' GROUP BY Date,Feature; ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function userlic()
+    {
+        $sql = "SELECT Date, SUBSTRING_INDEX(UserMachine, '@', 1) AS U, COUNT(Feature) AS `CNTLIC` FROM (SELECT DISTINCT * FROM licenselogC) AS `T` WHERE Status='OUT' GROUP BY Date, SUBSTRING_INDEX(UserMachine, '@', 1)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function userlicchoice($startDate, $endDate)
+    {
+        $sql = "SELECT Date, SUBSTRING_INDEX(UserMachine, '@', 1) AS U, COUNT(Feature) AS `CNTLIC` FROM (SELECT DISTINCT * FROM licenselogC WHERE Date >= ? AND Date <= ?) AS `T` WHERE Status='OUT' GROUP BY Date, SUBSTRING_INDEX(UserMachine, '@', 1)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function calls()
+    {
+        $sql = "SELECT DISTINCT * FROM licenselogC WHERE Status='OUT'; ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function callschoice($startDate, $endDate)
+    {
+        $sql = "SELECT DISTINCT * FROM licenselogC WHERE Status='OUT' AND Date >= ? AND Date <= ?; ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function utilftlic()
+    {
+        $sql = "SELECT DATE(timeofmon) AS Date, feature, (used / total)*100 AS `AVGLIC` FROM softwarelicenseshistory 
+        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'cfd', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
+        GROUP BY DATE(timeofmon), feature";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function utilftlicchoice($startDate, $endDate)
+    {
+        $sql = "SELECT DATE(timeofmon) AS Date, feature, (used / total)*100 AS `AVGLIC` FROM softwarelicenseshistory 
+        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'cfd', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
+        AND DATE(timeofmon) >= ? AND DATE(timeofmon) <= ?
+        GROUP BY DATE(timeofmon), feature";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function baseusage()
+    {
+        $sql = "SELECT DISTINCT * FROM licenselogC WHERE Status='OUT' AND Feature='COMSOL'; ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function baseusagechoice($startDate, $endDate)
+    {
+        $sql = "SELECT DISTINCT * FROM licenselogC WHERE Status='OUT' AND Feature='COMSOL' AND Date >= ? AND Date <= ?; ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function usage()
+    {
+        $sql = "SELECT DISTINCT * FROM licenselogC WHERE Status='OUT'; ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function usagechoice($startDate, $endDate)
+    {
+        $sql = "SELECT DISTINCT * FROM licenselogC WHERE Status='OUT' AND Date >= ? AND Date <= ?; ";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$startDate, $endDate]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
