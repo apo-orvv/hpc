@@ -27,6 +27,7 @@ class LogController
             $denialcount = $this->model->denialcountchoice($start_date, $end_date);
             $ftlic = $this->model->ftlicchoice($start_date, $end_date);
             $utilftlic = $this->model->utilftlicchoice($start_date, $end_date);
+            $utilftliccnt = $this->model->utilftliccntchoice($start_date, $end_date);
             $userlic = $this->model->userlicchoice($start_date, $end_date);
             $calls = $this->model->callschoice($start_date, $end_date);
             $usage = $this->model->usagechoice($start_date, $end_date);
@@ -38,6 +39,7 @@ class LogController
                 'denialcount' => $denialcount,
                 'ftlic' => $ftlic,
                 'utilftlic' => $utilftlic,
+                'utilftliccnt' => $utilftliccnt,
                 'userlic' => $userlic,
                 'usage' => $usage,
                 'baseusage' => $baseusage,
@@ -59,6 +61,7 @@ class LogController
             $denialcount = $this->model->denialcount();
             $ftlic = $this->model->ftlic();
             $utilftlic = $this->model->utilftlic();
+            $utilftliccnt = $this->model->utilftliccnt();
             $userlic = $this->model->userlic();
             $calls = $this->model->calls();
             $usage = $this->model->usage();
@@ -70,6 +73,7 @@ class LogController
                 'denialcount' => $denialcount,
                 'ftlic' => $ftlic,
                 'utilftlic' => $utilftlic,
+                'utilftliccnt' => $utilftliccnt,
                 'userlic' => $userlic,
                 'usage' => $usage,
                 'baseusage' => $baseusage,

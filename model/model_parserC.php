@@ -582,7 +582,7 @@ class LogModel
     public function utilftlic()
     {
         $sql = "SELECT DATE(timeofmon) AS Date, feature, (used / total)*100 AS `AVGLIC` FROM softwarelicenseshistory 
-        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'cfd', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
+        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'CFD', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
         GROUP BY DATE(timeofmon), feature";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -592,7 +592,28 @@ class LogModel
     public function utilftlicchoice($startDate, $endDate)
     {
         $sql = "SELECT DATE(timeofmon) AS Date, feature, (used / total)*100 AS `AVGLIC` FROM softwarelicenseshistory 
-        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'cfd', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
+        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'CFD', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
+        AND DATE(timeofmon) >= ? AND DATE(timeofmon) <= ?
+        GROUP BY DATE(timeofmon), feature";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$startDate, $endDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function utilftliccnt()
+    {
+        $sql = "SELECT DATE(timeofmon) AS Date, feature, used AS `AVGLIC` FROM softwarelicenseshistory 
+        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'CFD', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
+        GROUP BY DATE(timeofmon), feature";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function utilftliccntchoice($startDate, $endDate)
+    {
+        $sql = "SELECT DATE(timeofmon) AS Date, feature, used AS `AVGLIC` FROM softwarelicenseshistory 
+        WHERE feature IN ('ACDC', 'CADIMPORT', 'CADIMPORTUSER', 'CFD', 'COMSOL', 'COMSOLGUI', 'COMSOLUSER', 'CORROSION', 'PARTICLETRACING', 'SERIAL') 
         AND DATE(timeofmon) >= ? AND DATE(timeofmon) <= ?
         GROUP BY DATE(timeofmon), feature";
         $stmt = $this->pdo->prepare($sql);

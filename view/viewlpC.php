@@ -12,15 +12,16 @@ class LogView
             <link rel="stylesheet" type="text/css" href="view\DataTables-1.10.24\css\jquery.dataTables.min.css">
             <script type="text/javascript" charset="utf8" src="view\js\jquery-3.5.1.js"></script>
             <script type="text/javascript" charset="utf8" src="view\DataTables-1.10.24\js\jquery.dataTables.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
-            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="view\DataTables-1.11.5\css\jquery.dataTables.min.css">
+            <link rel="stylesheet" type="text/css" href="view\DataTables\Buttons-2.1.0\css\buttons.dataTables.min.css">
+            <script type="text/javascript" charset="utf8" src="view\js\jquery-3.6.0.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables-1.11.5\js\jquery.dataTables.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables\Buttons-2.1.0\js\dataTables.buttons.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables\Buttons-2.1.0\js\buttons.html5.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\pdfmake-0.1.36\pdfmake.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\pdfmake-0.1.36\vfs_fonts.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables\Buttons-2.1.0\js\buttons.print.min.js"></script>
+            
             <style>
                 .container, .graph-container1, .graph-container2, .data-table, .data-table2, .table-container, .dgraph-container, .lic-graph, .Licenseconsumption{
                     margin: 20px auto;
@@ -59,6 +60,24 @@ class LogView
                     background-color: #f0f0f0;
                     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
                 }
+                .showutilpercent,
+                .showutilcnt,
+                .show-lic-graph-by-feature,
+                .show-lic-graph-by-user,
+                .tknconuser,
+                .tknconft {
+                margin-right: 10px;
+                background-color: #ccc;
+                padding: 10px;
+                border-radius: 5px;
+                }
+                .utillic, .lic-graph, .tokenconsumption {
+                display: none;
+                }
+                .showutilboth, .show-both-lic-graphs, .tknconboth {
+                    background-color: #7CB9E8;
+                    color: #fff;
+                }
             </style>
         </head>
         <body>
@@ -74,10 +93,16 @@ class LogView
             <input type="date" name="end_date" id="end_date" required>
             <br><br>
             <button type="submit" name="submit2">Show Specified Data</button>
-        </form></center>
+        </form></center><br><br>
 
-        <div class="lic-graph">
-            <center><h1>License Utilization</h1>
+        <div><center>
+                <button class="showutilpercent">License Utilization (%)</button>
+                <button class="showutilcnt">Licenses Used</button><br><br>
+                <button class="showutilboth">Show Both</button>
+        </center></div><br><br>
+
+        <div id="utilpercent" class="utillic">
+            <center><h1>License Utilization (%)</h1>
             <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="utilftLIC"></canvas>
                 <script>
@@ -165,7 +190,159 @@ class LogView
                 </script>
             </div>
             
-            <div class="lic-graph">
+            <div id="utilcnt" class="utillic">
+            <center><h1>Licenses Used</h1>
+            <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
+                <canvas id="utilftliccnt"></canvas>
+                <script>
+                    var licData = ' . json_encode($data["utilftliccnt"]) . ';
+                
+                    var dates = [];
+                    var features = [];
+                    var dataValues = {};
+                
+                    for (var i = 0; i < licData.length; i++) {
+                        var date = licData[i].Date;
+                        var feature = licData[i].feature;
+                
+                        if (!dates.includes(date)) {
+                            dates.push(date);
+                        }
+                
+                        if (!features.includes(feature)) {
+                            features.push(feature);
+                        }
+                
+                        if (!dataValues[date]) {
+                            dataValues[date] = {};
+                        }
+                
+                        dataValues[date][feature] = licData[i]["AVGLIC"];
+                    }
+                
+                    var datasets = [];
+                
+                    for (var i = 0; i < features.length; i++) {
+                        var feature = features[i];
+                        var data = [];
+                
+                        for (var j = 0; j < dates.length; j++) {
+                            var date = dates[j];
+                            data.push(dataValues[date][feature] || 0);
+                        }
+                
+                        var randomColor = getRandomColor();
+                
+                        datasets.push({
+                            label: feature,
+                            data: data,
+                            backgroundColor: randomColor,
+                            borderColor: randomColor,
+                            borderWidth: 1,
+                        });
+                    }
+                
+                    var ctx = document.getElementById("utilftliccnt").getContext("2d");
+                    var myBarChart = new Chart(ctx, {
+                        type: "line",
+                        data: {
+                            labels: dates,
+                            datasets: datasets
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: "Date"
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: "Used"
+                                    }
+                                }
+                            }
+                        }
+                    });
+                
+                    function getRandomColor() {
+                        var letters = "0123456789ABCDEF";
+                        var color = "#";
+                        for (var i = 0; i < 6; i++) {
+                            color += letters[Math.floor(Math.random() * 16)];
+                        }
+                        return color;
+                    }
+                </script>
+            </div>
+
+            <script>
+                const utilPercentGraph = document.getElementById("utilpercent");
+                const utilCntGraph = document.getElementById("utilcnt");
+
+                const utilGraphByPercent = document.querySelector(".showutilpercent");
+                utilGraphByPercent.addEventListener("click", () => {
+                utilPercentGraph.style.display = "block";
+                utilCntGraph.style.display = "none";
+                });
+                const utilGraphByCnt = document.querySelector(".showutilcnt");
+                utilGraphByCnt.addEventListener("click", () => {
+                utilCntGraph.style.display = "block";
+                utilPercentGraph.style.display = "none";
+                });
+                const bothUtilGraph = document.querySelector(".showutilboth");
+                bothUtilGraph.addEventListener("click", () => {
+                utilPercentGraph.style.display = "block";
+                utilCntGraph.style.display = "block";
+                });
+            </script>
+
+            <div class="table-container">
+            <script>
+                $(document).ready(function() {
+                    $("#DT1").DataTable( {
+                    dom: "Bfrtip",
+                    buttons: [
+                    "copy", "csv", "excel", "pdf", "print"
+                    ]
+                    } );
+                } );
+            </script>
+
+                <center><h1>Overall Calls</h1>
+                <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
+                <table id="DT1" class="display">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Feature</th>
+                            <th>UserMachine</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($data['calls'] as $record) :
+            echo '<tr>
+                                <td>' . $record["Date"] . '</td>
+                                <td>' . $record["Time"] . '</td>
+                                <td>' . $record["Feature"] . '</td>
+                                <td>' . $record["UserMachine"] . '</td>
+                            </tr>';
+        endforeach;
+        echo '</tbody>
+                </table>
+            </div>
+            
+        <div><center>
+            <button class="show-lic-graph-by-feature">Day-Wise Avg. Token Usage wrt Feature</button>
+            <button class="show-lic-graph-by-user">Day-Wise Avg. Token Usage wrt User</button><br><br>
+            <button class="show-both-lic-graphs">Show Both</button>
+        </center></div><br><br><br>
+
+        <div id="lic-graph-by-feature" class="lic-graph">
             <center><h1>Day-Wise License Calls wrt Feature</h1>
             <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="LICbarChart"></canvas>
@@ -256,7 +433,7 @@ class LogView
                 </script>
             </div>
             
-            <div class="lic-graph">
+            <div id="lic-graph-by-user" class="lic-graph">
             <center><h1>Day-Wise License Calls wrt User</h1>
             <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="userLICbarChart"></canvas>
@@ -349,7 +526,34 @@ class LogView
                 </script>
             </div>
 
-            <div class="Licenseconsumption">
+            <script>
+                const featureLicGraph = document.getElementById("lic-graph-by-feature");
+                const userLicGraph = document.getElementById("lic-graph-by-user");
+
+                const showLicGraphByFeatureButton = document.querySelector(".show-lic-graph-by-feature");
+                showLicGraphByFeatureButton.addEventListener("click", () => {
+                featureLicGraph.style.display = "block";
+                userLicGraph.style.display = "none";
+                });
+                const showLicGraphByUserButton = document.querySelector(".show-lic-graph-by-user");
+                showLicGraphByUserButton.addEventListener("click", () => {
+                userLicGraph.style.display = "block";
+                featureLicGraph.style.display = "none";
+                });
+                const showBothLicGraphsButton = document.querySelector(".show-both-lic-graphs");
+                showBothLicGraphsButton.addEventListener("click", () => {
+                featureLicGraph.style.display = "block";
+                userLicGraph.style.display = "block";
+                });
+            </script>
+
+            <div><center>
+                <button class="tknconuser">Top 5 Token Consumption wrt User [Base License]</button>
+                <button class="tknconft">Top 5 Token Consumption wrt Feature</button><br><br>
+                <button class="tknconboth">Show Both</button>
+            </center></div><br>
+
+            <div id="conuser" class="tokenconsumption">
                 <br><center><h1>Top 5 License Consumption wrt User [Base License]</h1>
                 <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="LicenseconsumptionCanvas" width="400" height="200"></canvas>
@@ -438,7 +642,7 @@ class LogView
                 }
             </script>
 
-            <div class="Licenseconsumption">
+            <div id="conft" class="tokenconsumption">
                 <br><center><h1>Top 5 License Consumption wrt Feature</h1>
                 <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="LicenseconsumptionCanvas2" width="400" height="200"></canvas>
@@ -527,41 +731,26 @@ class LogView
                 }
             </script>
 
-            <div class="table-container">
             <script>
-                $(document).ready(function() {
-                    $("#DT1").DataTable( {
-                    dom: "Bfrtip",
-                    buttons: [
-                    "copy", "csv", "excel", "pdf", "print"
-                    ]
-                    } );
-                } );
-            </script>
+                const userConGraph = document.getElementById("conuser");
+                const ftConGraph = document.getElementById("conft");
 
-                <center><h1>Overall Calls</h1>
-                <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
-                <table id="DT1" class="display">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Feature</th>
-                            <th>UserMachine</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-        foreach ($data['calls'] as $record) :
-            echo '<tr>
-                                <td>' . $record["Date"] . '</td>
-                                <td>' . $record["Time"] . '</td>
-                                <td>' . $record["Feature"] . '</td>
-                                <td>' . $record["UserMachine"] . '</td>
-                            </tr>';
-        endforeach;
-        echo '</tbody>
-                </table>
-            </div>
+                const conGraphByUser = document.querySelector(".tknconuser");
+                conGraphByUser.addEventListener("click", () => {
+                userConGraph.style.display = "block";
+                ftConGraph.style.display = "none";
+                });
+                const conGraphByFt = document.querySelector(".tknconft");
+                conGraphByFt.addEventListener("click", () => {
+                ftConGraph.style.display = "block";
+                userConGraph.style.display = "none";
+                });
+                const conGraphBoth = document.querySelector(".tknconboth");
+                conGraphBoth.addEventListener("click", () => {
+                userConGraph.style.display = "block";
+                ftConGraph.style.display = "block";
+                });
+            </script>
 
             <div class="table-container">
             <script>

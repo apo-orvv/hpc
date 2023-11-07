@@ -12,15 +12,15 @@ class LogView
             <link rel="stylesheet" type="text/css" href="view\DataTables-1.10.24\css\jquery.dataTables.min.css">
             <script type="text/javascript" charset="utf8" src="view\js\jquery-3.5.1.js"></script>
             <script type="text/javascript" charset="utf8" src="view\DataTables-1.10.24\js\jquery.dataTables.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
-            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="view\DataTables-1.11.5\css\jquery.dataTables.min.css">
+            <link rel="stylesheet" type="text/css" href="view\DataTables\Buttons-2.1.0\css\buttons.dataTables.min.css">
+            <script type="text/javascript" charset="utf8" src="view\js\jquery-3.6.0.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables-1.11.5\js\jquery.dataTables.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables\Buttons-2.1.0\js\dataTables.buttons.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables\Buttons-2.1.0\js\buttons.html5.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\pdfmake-0.1.36\pdfmake.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\pdfmake-0.1.36\vfs_fonts.js"></script>
+            <script type="text/javascript" charset="utf8" src="view\DataTables\Buttons-2.1.0\js\buttons.print.min.js"></script>
 
             <style>
                 .container, .graph-container1, .graph-container2, .data-table, .data-table2, .table-container, .dgraph-container, .utilgraph, .tokenconsumption{
@@ -61,19 +61,24 @@ class LogView
                     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
                 }
                 .show-lic-graph-by-feature,
-                .show-lic-graph-by-user {
+                .show-lic-graph-by-user,
+                .tknconuser,
+                .tknconft {
                 margin-right: 10px;
                 background-color: #ccc;
                 padding: 10px;
                 border-radius: 5px;
                 }
-                .lic-graph {
+                .lic-graph, .tokenconsumption {
                 display: none;
                 }
-                .show-both-lic-graphs {
-                    background-color: #7CB9E8;
+                .show-both-lic-graphs, .tknconboth {
+                    background-color: #00CED1;
                     color: #fff;
                 }
+                .incsize {
+                    font-size: 18px;
+                }                  
             </style>
         </head>
         <body>
@@ -90,7 +95,7 @@ class LogView
             </form></center>
     
             <div class="utilgraph">
-            <center><h1>Token Utilization</h1>
+            <center><h1>Token Utilization (%)</h1>
                     <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="utilftLIC"></canvas>
                 <script>
@@ -180,11 +185,12 @@ class LogView
                 </script>
             </div><br>
 
-            <div><center>
-                <button class="show-lic-graph-by-feature">Day-Wise Avg. Token Usage wrt Feature</button><br><br>
-                <button class="show-lic-graph-by-user">Day-Wise Avg. Token Usage wrt User</button><br><br>
-                <button class="show-both-lic-graphs">Show Both</button>
-            </center></div><br>
+            <div><center class="incsize">
+                Day-Wise Avg. Token Usage: &nbsp;
+                <button class="show-lic-graph-by-feature">Feature</button> / 
+                &nbsp;&nbsp;&nbsp;<button class="show-lic-graph-by-user">User</button><br><br>
+                <button class="show-both-lic-graphs">Display Both</button>
+            </center></div><br><br><br>
 
             <div id="lic-graph-by-feature" class="lic-graph">
             <center><h1>Day-Wise Avg. Token Usage wrt Feature</h1>
@@ -393,7 +399,14 @@ class LogView
                 });
             </script>
 
-            <div class="tokenconsumption">
+            <div><center class="incsize">
+                Top 5 Token Consumption: &nbsp;
+                <button class="tknconuser">User [Base License]</button> / 
+                &nbsp;&nbsp;&nbsp;<button class="tknconft">Feature</button><br><br>
+                <button class="tknconboth">Display Both</button>
+            </center></div><br>
+
+            <div id="conuser" class="tokenconsumption">
                 <br><center><h1>Top 5 Token Consumption wrt User [Base License]</h1>
                 <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="tokenconsumptionCanvas" width="400" height="200"></canvas>
@@ -484,7 +497,7 @@ class LogView
                 }
             </script>
 
-            <div class="tokenconsumption">
+            <div id="conft" class="tokenconsumption">
                 <br><center><h1>Top 5 Token Consumption wrt Feature</h1>
                 <h3>Data from ' . date("d-m-Y", strtotime($data["startDate"])) . ' to ' . date("d-m-Y", strtotime($data["endDate"])) . '</h3></center>
                 <canvas id="tokenconsumptionCanvas2" width="400" height="200"></canvas>
@@ -573,6 +586,27 @@ class LogView
                     }
                     return color;
                 }
+            </script>
+
+            <script>
+                const userConGraph = document.getElementById("conuser");
+                const ftConGraph = document.getElementById("conft");
+
+                const conGraphByUser = document.querySelector(".tknconuser");
+                conGraphByUser.addEventListener("click", () => {
+                userConGraph.style.display = "block";
+                ftConGraph.style.display = "none";
+                });
+                const conGraphByFt = document.querySelector(".tknconft");
+                conGraphByFt.addEventListener("click", () => {
+                ftConGraph.style.display = "block";
+                userConGraph.style.display = "none";
+                });
+                const conGraphBoth = document.querySelector(".tknconboth");
+                conGraphBoth.addEventListener("click", () => {
+                userConGraph.style.display = "block";
+                ftConGraph.style.display = "block";
+                });
             </script>
 
             <div class="table-container">
